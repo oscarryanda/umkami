@@ -288,7 +288,7 @@
 
 ### 2) Bagan _request client_ ke web pada Django
 
-![Django Rocket](https://i.ibb.co.com/tKf6k0B/BAGAN-PBP.png)
+![Bagan request & response Django](https://media.discordapp.net/attachments/1144094248665370624/1282015001766395945/BAGAN_PBP.png?ex=66ddd103&is=66dc7f83&hm=c296e3f9ea94c7b1084bde785a88609e3748a6059ecaa520a224952b8eb231e0&=&format=webp&quality=lossless&width=825&height=463)
 
 Bagan di atas menggambarkan siklus _request-response_ dalam aplikasi web Django. Berikut adalah penjelasan keterkaitan antara `urls.py`, `views.py`, `models.py`, dan berkas HTML dalam proses ini:
 
