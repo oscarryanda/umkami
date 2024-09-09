@@ -6,4 +6,4 @@ def home_view(request):
         'student_name': 'Oscar Ryanda Putra',
         'student_class': 'PBP F',
     }
-    return render(request, 'main/home.html', context)
+    return render(request, 'home.html', context)
