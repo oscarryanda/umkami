@@ -915,4 +915,4 @@ urlpatterns = [
 4. XML By ID
    ![SS POSTMAN XML By ID](https://media.discordapp.net/attachments/1285037553409593417/1285037616772939888/229.png?ex=66e8d00a&is=66e77e8a&hm=975e8a9757b6fe1ce49d30f2a284d1397a6211a4608c1f0a8eaa3c85aa9c05eb&=&format=webp&quality=lossless&width=1248&height=655)
 
-~Sekian & Terima Kasih~
+Sekian & Terima Kasih
