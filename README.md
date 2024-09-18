@@ -295,3 +295,358 @@ Berikut adalah beberapa alasan mengapa model Django disebut ORM:
 3. Portabilitas: Kode yang menggunakan ORM lebih mudah dipindahkan antar jenis database. Jadi, jika ingin mengganti jenis database, perubahan yang dibutuhkan hanya sedikit di konfigurasi.
 4. Keamanan: ORM membantu meningkatkan keamanan aplikasi dengan mengurangi risiko injeksi SQL, karena kueri yang dibentuk melalui ORM lebih terstruktur dan lebih terkontrol.
 5. Efisiensi Pengembangan: Penggunaan ORM mempercepat proses pengembangan karena mengurangi jumlah kode yang perlu ditulis dan diuji, serta menjaga kode tetap bersih dan mudah dipahami hanya dengan menggunakan satu bahasa.
+
+## Tugas 3
+
+### 1) Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
+
+Data delivery atau pengiriman data adalah aspek penting dalam implementasi platform karena berperan besar dalam memastikan kinerja, skalabilitas, dan keamanan platform. Berikut adalah beberapa alasan mengapa pengiriman data sangat diperlukan:
+
+1. **Aksesibilitas**: Menjamin ketersediaan data yang diperlukan untuk pengguna dan sistem (tidak hanya terbatas dalam waktu ataupun tempat tertentu saja).
+2. **Integrasi**: Menyediakan kemampuan pertukaran data dengan sistem lain untuk keperluan integrasi antar platform atau aplikasi.
+3. **Performa**: Mampu mempertahankan kecepatan dan skalabilitas platform melalui pengiriman data dengan volume yang besar secara efesien.
+4. **Keamanan**: Memastikan data aman selama transit dan menghindari akses tidak sah dalam proses pengiriman data.
+5. **Pengalaman Pengguna**: Meningkatkan responsivitas dan kepuasan pengguna melalui pengiriman data yang cepat.
+
+### 2) Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
+
+Menurut saya sendiri, JSON lebih baik dibandingkan dengan XML karena JSON terbilang lebih mudah untuk dibaca oleh manusia (berbentuk seperti dictionary dalam python) dan memiliki kemampuan pengiriman data yang lebih cepat. Selain itu, JSON memiliki kemampuan untuk menyimpan _array_, sedangkan XML tidak memiliki kemampuan tersebut. Walaupun memang XML memiliki sintaks yang mirip dengan HTML, namun secara _readability_ cukup sulit bagi kita manusia. Pada intinya, XML dan JSON memiliki fungsi yang sama yaitu untuk pengiriman data namun memiliki bentuk sintaks dan kemampuan yang berbeda.
+
+JSON lebih populer dibandingkan XML karena sekali lagi memiliki sintaks atau format yang lebih mudah untuk dibaca oleh mansuia. Selain itu, JSON juga memiliki baris kode yang jauh lebih sedikit dibandingkan XML sehingga membuat JSON memiliki kemampuan pengiriman data yang lebih cepat.
+
+### 3) Jelaskan fungsi dari method `is_valid()` pada form Django dan mengapa kita membutuhkan method tersebut?
+
+Sesuai namanya, method `is_valid()` berfungsi untuk mengecek apakah data yang telah dimasukkan ke dalam form sudah memenuhi kriteria validasi yang telah ditentukan di form fields (entah itu CharField, IntegerField, TextField atau lainnya) kemudian me-_return_ _boolean_. Selain itu, method tersebut juga berfungsi untuk mengonversi inputan ke tipe python yang sesuai, memastikan tidak ada karakter yang ilegal dan mengatur data sesuai format yang diperlukan.
+
+Kita membutuhkan method tersebut untuk keamanan data dengan memvalidasi kembali data sebelum dikirimkan ke database agar mengurangi adanya data berbahaya yang berpotensi menyebabkan error pada sisi server. Selain itu, pengguna atapun pengembang juga akan mendapatkan _feedback_ yang jelas mengenai kesalahan atau error yang terjadi pada input form data melalui method tersebut.
+
+### 4) Mengapa kita membutuhkan `csrf_token` saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan `csrf_token` pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+
+Token CSRF (Cross-Site Request Forgery) adalah komponen keamanan penting yang digunakan dalam pengembangan web untuk melindungi situs web dari serangan CSRF. Ini sangat penting dalam platform seperti Django yang secara otomatis menangani banyak aspek keamanan, termasuk perlindungan CSRF.
+
+Berikut adalah beberapa fungsi dari token CSRF :
+
+1. Verifikasi _request client_
+   Token ini melakukan pengecekan bahwa permintaan atau request yang diterima oleh server berasal dari pengguna atau situs yang benar dan sah. Setiap sesi pengguna memiliki token unik ini dan ditambahkan dalam form sebagai hidden field yang harus dikirimkan kembali ke server setiap melakukan submission form.
+2. Pencegahan Serangan CSRF
+   Dengan melakukan verifikasi terhadap token CSRF, maka Django dapat memastikan dan menolak permintaan form yang tidak memiliki atau memiliki token yang tidak valid untuk mencegah serangan dari pengguna atau situs yang tidak sah.
+
+Jika kita tidak menggunakan token CSRF, maka penyerang dapat melakukan permintaan berbahaya (seperti POST) yang dapat dilakukan oleh browser pengguna tanpa sepengetahuan atau persetujuan dari pengguna tersebut. Hal ini bisa membuat penyerang melakukan perubahan kata sandi, melakukan transaksi atau mengubah pengaturan akun tanpa sepengetahuan pengguna.
+
+Penyerang dapat memanfaatkan ketidakhadiran CSRF token dengan mengirimkan form palsu. Penyerang dapat membuat laman web yang ketika dikunjungi oleh pengguna, secara otomatis mengirimkan form ke aplikasi Django tanpa sepengetahuan pengguna tersebut. Selain itu, penyerang juga bisa memanfaatkan _img tag_ atau javascript untuk membuat permintaan yang keliru dan tidak dapat dibedakan oleh Django.
+
+### 5) Implementasi chekclist form
+
+##### Check 1 : Membuat input `form` untuk menambahkan objek model pada app sebelumnya.
+
+1. Membuat berkas `forms.py` pada direktori `main` dengan berisi kode berikut :
+
+```python
+from django.forms import ModelForm
+from main.models import Product
+
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = '__all__'
+```
+
+2. Sebelum melanjutkan, saya perlu mengimplementasikan _skeleton_ sebagai kerangka views. Saya membuat direktori baru bernama `templates` pada direktori utama dan membuat berkas baru bernama `base.html` dengan isi kode berikut :
+
+```html
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <title>UMKaMi</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    {% block meta %} {% endblock meta %}
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav
+      class="navbar"
+      data-bs-theme="dark"
+      style="background-color: #742bcf"
+    >
+      <div class="container-fluid">
+        <a
+          class="navbar-brand"
+          href="#"
+          ><b>UMKaMi</b></a
+        >
+      </div>
+    </nav>
+    <!-- END Navbar -->
+    {% block content %} {% endblock content %}
+
+    <!-- Bootstrap Script -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <!-- END Bootstrap Script -->
+  </body>
+</html>
+```
+
+- Saya menggunakan library bootstrap untuk mempercantik tampilan website.
+
+3. Menambahkan kode berikut pada berkas `settings.py` di direktori proyek `toko_ungu` :
+
+```python
+...
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'], # Tambahkan konten baris ini
+        'APP_DIRS': True,
+        ...
+    }
+]
+...
+```
+
+4. Mengubah kode pada berkas `main/templates/main.html` yang telah dibuat pada tugas sebelumnya menjadi sebagai berikut :
+
+```html
+{% extends 'base.html' %} {% block content %}
+
+<!-- Name Card -->
+<div class="p-3">
+  <div class="card">
+    <div class="card-header">
+      <b><em>{{app}}</em></b> made with ❤️ By :
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p>{{ name }}</p>
+        <footer class="blockquote-footer">{{ class }} | 2306245775</footer>
+      </blockquote>
+    </div>
+  </div>
+</div>
+<!-- END Name Card -->
+{% endblock content %}
+```
+
+5. Saya juga perlu menambahkan field baru yaitu id sebagai pengamanan pada `/main/models.py` sebagai berikut :
+
+```python
+from django.db import models
+import uuid
+
+class Product(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    price = models.IntegerField()
+    quantity = models.IntegerField()
+
+    @property
+    def is_available(self):
+        return self.quantity > 0
+```
+
+6. Jangan lupa untuk melakukan migrasi dengan perintah sebagai berikut :
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+7. Membuat method baru bernama `create_product` di berkas `/main/views.py` yang berfungsi untuk menambah entri produk baru ke database dan menambahkan beberapa baris kode pada berkas tersebut. Berikut kodenya :
+
+```python
+from django.shortcuts import render, redirect
+from main.forms import ProductForm
+from main.models import Product
+from django.http import HttpResponse
+from django.core import serializers
+
+def show_main(request):
+    products = Product.objects.all()
+
+    context = {
+        'app' : 'UMKaMi',
+        'name': 'Oscar Ryanda Putra',
+        'class': 'PBP F',
+        'products': products,
+    }
+
+    return render(request, "main.html", context)
+
+def create_product(request):
+    form = ProductForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST" :
+        form.save()
+        return redirect('main:show_main')
+
+    context = {'form': form}
+
+    return render(request, "create_product.html", context)
+```
+
+8. Mengimplementasikan form yang baru saja dibuat ke dalam berkas laman baru bernama `/templates/create_product.html` dengan menggunakan `base.html`. Berikut kodenya :
+
+```html
+{% extends 'base.html' %} {% block content %}
+
+<!-- Card -->
+<div class="p-3">
+  <div class="card">
+    <div class="card-header"><b>Add New Product :</b></div>
+    <div class="card-body">
+      <form method="POST">
+        {% csrf_token %}
+        <table>
+          {{ form.as_table }}
+          <tr>
+            <td></td>
+            <td>
+              <input
+                type="submit"
+                value="Add Product"
+              />
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- END Card -->
+
+{% endblock %}
+```
+
+9. Melakukan routing URL laman tersebut di file `/main/urls.py`. Berikut kodenya :
+
+```python
+urlpatterns = [
+    ...
+    path('create-product', create_product, name='create_product'),
+    ...
+]
+```
+
+10. Menampilkan database produk yang telah terdaftar ke laman utama `main.html`. Berikut penambahan kodenya :
+
+```html
+...
+<!-- Product Card -->
+<div class="p-3">
+  <div class="card">
+    <div class="card-header">Registered Product :</div>
+    <div class="card-body">
+      {% if not products %}
+      <p>Belum ada product pada UMKaMi.</p>
+      {% else %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for p in products %}
+          <tr>
+            <td>{{p.name}}</td>
+            <td>{{p.description}}</td>
+            <td>{{p.price}}</td>
+            <td>{{p.quantity}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+
+      <br />
+
+      <a href="{% url 'main:create_product' %}">
+        <button>Add New Product</button>
+      </a>
+    </div>
+  </div>
+</div>
+<!-- END Product Card -->
+{% endblock %}
+```
+
+##### Check 2 : Tambahkan 4 fungsi `views` baru untuk melihat objek yang sudah ditambahkan dalam format XML, JSON, XML _by ID_, dan JSON _by ID_.
+
+11. Membuat beberapa fungsi baru untuk menampilkan JSON dan XML baik secara keselurhan ataupaun per entri database pada berkas `/main/views.py`. Berikut kodenya :
+
+```python
+...
+def show_xml(request):
+    data = Product.objects.all()
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+def show_json(request):
+    data = Product.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def show_xml_by_id(request, id):
+    data = Product.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+def show_json_by_id(request, id):
+    data = Product.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+...
+```
+
+##### Check 3 : Membuat routing URL untuk masing-masing `views` yang telah ditambahkan pada Check 2.
+
+12. Melakukan routing kembali URL funsgi tersebut pada file `/main/urls.py` dengan menambahkan kode berikut :
+
+```python
+from django.urls import path
+from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id
+
+app_name = 'main'
+
+urlpatterns = [
+    path('', show_main, name='show_main'),
+    path('create-product', create_product, name='create_product'),
+    path('xml/', show_xml, name='show_xml'),
+    path('json/', show_json, name='show_json'),
+    path('xml/<str:id>/', show_xml_by_id, name='show_xml_by_id'),
+    path('json/<str:id>/', show_json_by_id, name='show_json_by_id'),
+]
+```
+
+13. Mencoba untuk menjalankan proyek dengan perintah `python manage.py runserver` dan membuka beberapa link yaitu http://localhost:8000/ untuk memastikan laman utama masih aman. Kemudian, link http://localhost:8000/xml/[id]/ atau http://localhost:8000/json/[id]/ untuk menampilkan data dalam bentuk xml ataupun json.
+
+### 6) Screenshot Postman
+
+1. JSON
+   ![SS POSTMAN JSON](https://media.discordapp.net/attachments/1285037553409593417/1285037616013770864/227.png?ex=66e8d00a&is=66e77e8a&hm=3f02e06aa1c3b424b4512a5665bdfbb5a6d5f06452b9ca1f888a6dc4ae66b17e&=&format=webp&quality=lossless&width=1248&height=655)
+
+2. JSON By ID
+   ![SS POSTMAN JSON By ID](https://media.discordapp.net/attachments/1285037553409593417/1285037616483270657/228.png?ex=66e8d00a&is=66e77e8a&hm=bccb1909fed140d208bfc67fc080ec8092150035e16e9a8bfb86061cd8b78c36&=&format=webp&quality=lossless&width=1248&height=655)
+
+3. XML
+   ![SS POSTMAN XML](https://media.discordapp.net/attachments/1285037553409593417/1285037617104293938/226.png?ex=66e8d00a&is=66e77e8a&hm=a8b0070547e78140a9a6302c5e5a951cb865e752a5fd25e219e9209f043b0420&=&format=webp&quality=lossless&width=1248&height=655)
+
+4. XML By ID
+   ![SS POSTMAN XML By ID](https://media.discordapp.net/attachments/1285037553409593417/1285037616772939888/229.png?ex=66e8d00a&is=66e77e8a&hm=975e8a9757b6fe1ce49d30f2a284d1397a6211a4608c1f0a8eaa3c85aa9c05eb&=&format=webp&quality=lossless&width=1248&height=655)
+
+Sekian & Terima Kasih
