@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% block content %}
+
+<!-- Card -->
+<div class="p-3">
+  <div class="card">
+    <div class="card-header"><b>Add New Product :</b></div>
+    <div class="card-body">
+      <form method="POST">
+        {% csrf_token %}
+        <table>
+          {{ form.as_table }}
+          <tr>
+            <td></td>
+            <td>
+              <input
+                type="submit"
+                value="Add Product"
+              />
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- END Card -->
+
+{% endblock %}
