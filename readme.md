@@ -490,7 +490,7 @@ git branch -M main
 
 ### 2) Bagan _request client_ ke web pada Django
 
-![Bagan request & response Django](https://media.discordapp.net/attachments/1144094248665370624/1282015001766395945/BAGAN_PBP.png?ex=66e85d03&is=66e70b83&hm=13ed0be68f066710345e0924304cd69af4a0408bc5f41f3a07fbf3a30cf1c936&=&format=webp&quality=lossless&width=825&height=463)
+![Bagan Request dan Response](https://github.com/user-attachments/assets/f69c567f-7ddd-4e64-a591-8fc732006c4d)
 
 Bagan di atas menggambarkan siklus _request-response_ dalam aplikasi web Django. Berikut adalah penjelasan keterkaitan antara `urls.py`, `views.py`, `models.py`, dan berkas HTML dalam proses ini:
 
@@ -904,15 +904,18 @@ urlpatterns = [
 ### 6) Screenshot Postman
 
 1. JSON
-   ![SS POSTMAN JSON](https://media.discordapp.net/attachments/1285037553409593417/1285037616013770864/227.png?ex=66e8d00a&is=66e77e8a&hm=3f02e06aa1c3b424b4512a5665bdfbb5a6d5f06452b9ca1f888a6dc4ae66b17e&=&format=webp&quality=lossless&width=1248&height=655)
+   ![SS POSTMAN JSON](https://github.com/user-attachments/assets/76c310a0-9026-4b94-974a-ae8384e79166)
 
 2. JSON By ID
-   ![SS POSTMAN JSON By ID](https://media.discordapp.net/attachments/1285037553409593417/1285037616483270657/228.png?ex=66e8d00a&is=66e77e8a&hm=bccb1909fed140d208bfc67fc080ec8092150035e16e9a8bfb86061cd8b78c36&=&format=webp&quality=lossless&width=1248&height=655)
+   ![SS POSTMAN JSON By ID](https://github.com/user-attachments/assets/36a424d7-e490-4fec-b1f1-6a006b70667b)
 
-3. XML
-   ![SS POSTMAN XML](https://media.discordapp.net/attachments/1285037553409593417/1285037617104293938/226.png?ex=66e8d00a&is=66e77e8a&hm=a8b0070547e78140a9a6302c5e5a951cb865e752a5fd25e219e9209f043b0420&=&format=webp&quality=lossless&width=1248&height=655)
 
-4. XML By ID
-   ![SS POSTMAN XML By ID](https://media.discordapp.net/attachments/1285037553409593417/1285037616772939888/229.png?ex=66e8d00a&is=66e77e8a&hm=975e8a9757b6fe1ce49d30f2a284d1397a6211a4608c1f0a8eaa3c85aa9c05eb&=&format=webp&quality=lossless&width=1248&height=655)
+4. XML
+   ![SS POSTMAN XML](https://github.com/user-attachments/assets/6af8f540-1ec5-4e83-a041-bbabcae20725)
+
+
+6. XML By ID
+   ![SS POSTMAN XML By ID](https://github.com/user-attachments/assets/ea8ee1ed-bd56-49a4-9bd3-6b4051d10065)
+
 
 Sekian & Terima Kasih
