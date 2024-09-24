@@ -8,7 +8,7 @@
     </div>
     <div class="card-body">
       <blockquote class="blockquote mb-0">
-        <p>{{ name }}</p>
+        <p>Jeremia Rangga Setyawan</p>
         <footer class="blockquote-footer">{{ class }} | 2306245775</footer>
       </blockquote>
     </div>
@@ -16,10 +16,27 @@
 </div>
 <!-- END Name Card -->
 
+<!-- UserName Card -->
+<div class="px-3 py-1">
+  <div class="card">
+    <div class="card-header"><b>User Data :</b></div>
+    <div class="card-body">
+      <p>Username : <i>{{ name }}</i></p>
+      <div
+        class="alert alert-warning mt-3"
+        role="alert"
+      >
+        <b>Sesi terakhir login : <i>{{ last_login }}</i></b>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END UserName Card -->
+
 <!-- Product Card -->
 <div class="p-3">
   <div class="card">
-    <div class="card-header">Registered Product :</div>
+    <div class="card-header"><b>Registered Product :</b></div>
     <div class="card-body">
       {% if not products %}
       <p>Belum ada product pada Toko Ungu.</p>
@@ -49,8 +66,17 @@
 
       <br />
 
-      <a href="{% url 'main:create_product' %}">
-        <button>Add New Product</button>
+      <a
+        class="btn btn-primary"
+        href="{% url 'main:create_product' %}"
+        >Add New Product
+      </a>
+
+      <a
+        class="btn btn-primary"
+        href="{% url 'main:logout' %}"
+      >
+        Logout
       </a>
     </div>
   </div>
