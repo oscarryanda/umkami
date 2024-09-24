@@ -1471,9 +1471,31 @@ DEBUG = not PRODUCTION
 ##### Check 2 : Membuat **dua** akun pengguna dengan masing-masing **tiga** _dummy data_ menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun **di lokal**.
 
 18. Untuk menyelesaikan checklist 2, saya perlu membuat dua akun pada form register di aplikasi saya.
+Akun pertama :
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/2031dad4-1983-4577-9f4f-4251df0f24e4">
+
+Akun kedua :
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/e1b89b7d-3525-4e8a-959e-114762d92a72">
+
 19. Kemudian, saya login dengan akun tersebut.
+Akun pertama :
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/9d7faa99-7483-4881-951a-16f3fd525e8f">
+
+Akun kedua :
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/b8b6330a-0f1a-47e0-b2f0-6fe909f63993">
+
 20. Lalu, saya membuat 3 product dummy beserta dengan deskripsi, harga dan quantity-nya.
+Akun pertama :
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/571bc109-6179-4eb9-8a3a-329577716a7a">
+
+Akun kedua :
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/a5209b43-e128-4c9c-81e4-524aa7815aaa">
+
 21. Produk akan muncul di bagian depan laman utama.
-22. Lakukan keempat langkah sebelumnya untuk akun yang kedua.
+Akun pertama :
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/949f812c-c8d2-4e74-94ff-e1f105e25722">
+
+Akun kedua :
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/a51f14a8-90e4-4305-9988-73aa64c9efa5">
 
 Sekian & Terima Kasih
