@@ -931,62 +931,57 @@ Ada beberapa perbedaan dari HttpResponseRedirect() dan redirect() dalam Django, 
 - `HttpResponseRedirect()` hanya menerima URL sebagai argumen, jadi jika kita ingin melakukan routing berdasarkan view, maka kita perlu mengonversi view tersebut menjadri URL menggunakan fungsi `reverse()`.
   Contoh penggunaan :
 
-  ````python
-  from django.http import HttpResponseRedirect
-  from django.urls import reverse
-
-      def my_view(request):
-          url = reverse('my_view_name')
-          return HttpResponseRedirect(url)
-      ```
-
-  ````
+     ````python
+     from django.http import HttpResponseRedirect
+     from django.urls import reverse
+   
+         def my_view(request):
+             url = reverse('my_view_name')
+             return HttpResponseRedirect(url)
+     ````
 
 - `redirect()` mampu melakukan routing berdasarkan nama view atau objek model secara langsung. Hal ini mempermudah saat URL mungkin terjadi perubahan di masa mendatang. Jika kita menggunakan nama view atau objek sebagai argumen URL, maka Django akan menggunakan `reverse()` secara otomatis untuk menghasilkan URL yang sesuai.
   Contoh pengunaan :
 
-  ````python
-  from django.shortcuts import redirect
-
-      def my_view(request):
-          return redirect('my_view_name')
-      ```
-  ````
+     ````python
+     from django.shortcuts import redirect
+   
+         def my_view(request):
+             return redirect('my_view_name')
+     ````
 
 3. _Objek model sebagai argumen_
 
 - `redirect()` memiliki kemampuan untuk bisa langsung menerima objek model sebagai argumen. Misalnya, jika kita memiliki objek `Post` dan ingin mengalihkan pengguna ke halaman detail untuk objek tersebut, `redirect()` akan mengkonversikannya ke URL detail yang sesuai.
   Contoh penggunaan :
 
-  ````python
-  from django.shortcuts import redirect
-  from .models import Post
-
-      def my_view(request, post_id):
-          post = Post.objects.get(pk=post_id)
-          return redirect(post)  # Akan mengarah ke Post.get_absolute_url()
-      ```
-
-  ````
+     ````python
+     from django.shortcuts import redirect
+     from .models import Post
+   
+         def my_view(request, post_id):
+             post = Post.objects.get(pk=post_id)
+             return redirect(post)  # Akan mengarah ke Post.get_absolute_url()
+     ````
 
 - HttpResponseRedirect() tidak mendukung fitur ini secara langsung, jadi kita perlu menangani URL sendiri.
   Contoh penggunaan :
 
-  ````python
-  from django.http import HttpResponseRedirect
-  from django.urls import reverse
-
-      def my_view(request, post_id):
-          post = Post.objects.get(pk=post_id)
-          return HttpResponseRedirect(reverse('post_detail', args=[post.id]))
-      ```
-  ````
+     ````python
+     from django.http import HttpResponseRedirect
+     from django.urls import reverse
+   
+         def my_view(request, post_id):
+             post = Post.objects.get(pk=post_id)
+             return HttpResponseRedirect(reverse('post_detail', args=[post.id]))
+     ````
 
 ### 2) Jelaskan cara kerja penghubungan model `Product` dengan `User`!
 
 Dalam kode yang saya terapkan pada tugas ini, ada beberapa penghubungan yang saya lakukan. Berikut penjelasannya :
 
 **1. Relasi antara `product` dan `user` di Model :**
+
 Untuk menghubungkan model `Product` dengan pengguna (`User`), kita perlu menambahkan sebuah **ForeignKey** yang menghubungkan model `Product` dengan model `User`. Model `User` Django diimpor dari `django.contrib.auth.models`. Contoh definisi model untuk menghubungkan `Product` dan `User` bisa dilihat dari kode berikut :
 
 ```python
@@ -1008,6 +1003,7 @@ class Product(models.Model):
 ```
 
 **2. Penguhubungan di `create_product` View :**
+
 Pada view `create_product`, ketika pengguna menambahkan produk baru, produk tersebut dihubungkan dengan pengguna yang sedang login melalui penggunaan `request.user`. Ini dilakukan dengan menambahkan pengguna ke `product_entry` sebelum disimpan ke basis data:
 
 ```python
@@ -1026,6 +1022,7 @@ def create_product(request):
 ```
 
 **3. Filter produk berdasarkan pengguna**
+
 Di view `show_main`, kita perlu memfilter produk berdasarkan pengguna yang sedang login menggunakan `Product.objects.filter(user=request.user)`. Ini memastikan bahwa hanya produk yang dibuat oleh pengguna tersebut yang ditampilkan:
 
 ```python
@@ -1047,7 +1044,9 @@ def show_main(request):
 ### 3) Apa perbedaan antara _authentication_ dan _authorization_, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.
 
 Authentication dan authorization adalah dua konsep yang berbeda, tetapi saling berkaitan dalam keamanan aplikasi web. Berikut penjelasannya :
+
 **_1. Authentication (Autentikasi) :_**
+
 Autentikasi adalah proses memverifikasi identitas pengguna _(Who)_. Misalnya ketika pengguna memasukkan nama pengguna dan kata sandi di halaman login, maka sistem akan memverifikasi kredensial tersebut dengan database akun.
 
 Pada Django prosesnya sebagai berikut :
@@ -1075,6 +1074,8 @@ Django memiliki kemampuan sebagai berikut :
 5. Jika pengguna tidak memiliki izin yang cukup, mereka akan ditolak aksesnya (403 Forbidden) atau dialihkan ke halaman login.
 
 **Implementasi Authentication dan Authorization di Django :**
+
+
 _Authentication :_
 
 - Django memiliki user model bawaan untuk mengelola pengguna.
@@ -1102,7 +1103,6 @@ _Authentication :_
             form = AuthenticationForm(request)
          context = {'form': form}
          return render(request, 'login.html', context)
-      ```
   ````
 
 _Authorizaztion :_
@@ -1126,7 +1126,6 @@ _Authorizaztion :_
   }
 
           return render(request, "main.html", context)
-      ```
   ````
 
 ### 4) Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari _cookies_ dan apakah semua cookies aman digunakan?
@@ -1142,6 +1141,7 @@ Django menggunakan **session** dan **cookies** untuk mengingat pengguna yang tel
 - **Session Middleware** di Django secara otomatis mengelola pembuatan dan penggunaan session ini.
 
 **Kegunaan Lain dari Cookies :**
+
 Selain mengingat pengguna yang telah login, cookies memiliki berbagai kegunaan dalam aplikasi web, di antaranya:
 
 - **Menyimpan preferensi pengguna**: Cookies dapat menyimpan preferensi pengguna, seperti tema warna, bahasa pilihan, atau pengaturan tata letak.
@@ -1151,6 +1151,7 @@ Selain mengingat pengguna yang telah login, cookies memiliki berbagai kegunaan d
 - **Pengiklanan**: Cookies digunakan untuk melacak kebiasaan pengguna di internet dan menyajikan iklan yang relevan berdasarkan data tersebut.
 
 **Apakah Semua Cookies Aman Digunakan ?**
+
 Tidak semua cookies aman digunakan. Meskipun cookies sering kali membantu meningkatkan pengalaman pengguna dengan menyimpan preferensi dan informasi sesi, mereka juga membawa risiko yang perlu diperhatikan. Cookies dapat menjadi target serangan, seperti **Cross-Site Scripting (XSS)**, di mana penyerang dapat mengakses informasi sensitif yang disimpan dalam cookie.
 
 Selain itu, cookies yang dikirim melalui koneksi tidak aman, seperti HTTP biasa, sangat rentan terhadap intersepsi oleh pihak ketiga dalam serangan **man-in-the-middle**. Ini berarti bahwa data yang dikirimkan dapat dicuri atau dimanipulasi.
