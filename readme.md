@@ -1,4 +1,4 @@
-﻿# Toko Ungu !
+﻿# Toko Ungu !!
 
 **_Disusun oleh : Jeremia Rangga Setyawan | 2306245775 | PBP B_**
 
@@ -931,50 +931,50 @@ Ada beberapa perbedaan dari HttpResponseRedirect() dan redirect() dalam Django, 
 - `HttpResponseRedirect()` hanya menerima URL sebagai argumen, jadi jika kita ingin melakukan routing berdasarkan view, maka kita perlu mengonversi view tersebut menjadri URL menggunakan fungsi `reverse()`.
   Contoh penggunaan :
 
-     ````python
-     from django.http import HttpResponseRedirect
-     from django.urls import reverse
-   
-         def my_view(request):
-             url = reverse('my_view_name')
-             return HttpResponseRedirect(url)
-     ````
+  ```python
+  from django.http import HttpResponseRedirect
+  from django.urls import reverse
+
+      def my_view(request):
+          url = reverse('my_view_name')
+          return HttpResponseRedirect(url)
+  ```
 
 - `redirect()` mampu melakukan routing berdasarkan nama view atau objek model secara langsung. Hal ini mempermudah saat URL mungkin terjadi perubahan di masa mendatang. Jika kita menggunakan nama view atau objek sebagai argumen URL, maka Django akan menggunakan `reverse()` secara otomatis untuk menghasilkan URL yang sesuai.
   Contoh pengunaan :
 
-     ````python
-     from django.shortcuts import redirect
-   
-         def my_view(request):
-             return redirect('my_view_name')
-     ````
+  ```python
+  from django.shortcuts import redirect
+
+      def my_view(request):
+          return redirect('my_view_name')
+  ```
 
 3. _Objek model sebagai argumen_
 
 - `redirect()` memiliki kemampuan untuk bisa langsung menerima objek model sebagai argumen. Misalnya, jika kita memiliki objek `Post` dan ingin mengalihkan pengguna ke halaman detail untuk objek tersebut, `redirect()` akan mengkonversikannya ke URL detail yang sesuai.
   Contoh penggunaan :
 
-     ````python
-     from django.shortcuts import redirect
-     from .models import Post
-   
-         def my_view(request, post_id):
-             post = Post.objects.get(pk=post_id)
-             return redirect(post)  # Akan mengarah ke Post.get_absolute_url()
-     ````
+  ```python
+  from django.shortcuts import redirect
+  from .models import Post
+
+      def my_view(request, post_id):
+          post = Post.objects.get(pk=post_id)
+          return redirect(post)  # Akan mengarah ke Post.get_absolute_url()
+  ```
 
 - HttpResponseRedirect() tidak mendukung fitur ini secara langsung, jadi kita perlu menangani URL sendiri.
   Contoh penggunaan :
 
-     ````python
-     from django.http import HttpResponseRedirect
-     from django.urls import reverse
-   
-         def my_view(request, post_id):
-             post = Post.objects.get(pk=post_id)
-             return HttpResponseRedirect(reverse('post_detail', args=[post.id]))
-     ````
+  ```python
+  from django.http import HttpResponseRedirect
+  from django.urls import reverse
+
+      def my_view(request, post_id):
+          post = Post.objects.get(pk=post_id)
+          return HttpResponseRedirect(reverse('post_detail', args=[post.id]))
+  ```
 
 ### 2) Jelaskan cara kerja penghubungan model `Product` dengan `User`!
 
@@ -1075,7 +1075,6 @@ Django memiliki kemampuan sebagai berikut :
 
 **Implementasi Authentication dan Authorization di Django :**
 
-
 _Authentication :_
 
 - Django memiliki user model bawaan untuk mengelola pengguna.
@@ -1084,7 +1083,7 @@ _Authentication :_
 - Selain itu, `AuthenticationForm` juga memiliki atribut `get_user()` yang berfungsi untuk mengembalikan objek User yang berhasil diautentikasi.
   Contoh penggunaan di kode saya :
 
-  ````python
+  ```python
   from django.http import HttpResponseRedirect
   from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
@@ -1103,7 +1102,7 @@ _Authentication :_
             form = AuthenticationForm(request)
          context = {'form': form}
          return render(request, 'login.html', context)
-  ````
+  ```
 
 _Authorizaztion :_
 
@@ -1112,7 +1111,7 @@ _Authorizaztion :_
 - Dekorator seperti `@login_required` dan `@permission_required` memudahkan pembatasan akses ke halaman atau fungsi tertentu.
   Contoh penggunaan di kode saya :
 
-  ````python
+  ```python
   @login_required(login_url='/login')
   def show_main(request):
   products = Product.objects.filter(user=request.user)
@@ -1126,7 +1125,7 @@ _Authorizaztion :_
   }
 
           return render(request, "main.html", context)
-  ````
+  ```
 
 ### 4) Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari _cookies_ dan apakah semua cookies aman digunakan?
 
