@@ -5,7 +5,7 @@ from main.views import register, login_user, logout_user
 app_name = 'main' 
 
 urlpatterns = [
-    path('', views.home_view, name='home'),
+    path('', views.home_view, name='home_view'),
     path('create-product', views.create_product, name='create_product'),
     path('xml/', views.show_xml, name='show_xml'),
     path('json/', views.show_json, name='show_json'),

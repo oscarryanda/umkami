@@ -10,15 +10,17 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 import datetime
 
+
 @login_required(login_url='/login')
 def home_view(request):
-    products = Product.objects.filter(user=request.user) 
+    products = Product.objects.filter(user=request.user)
+    last_login = request.COOKIES.get('last_login', 'Unknown')  # Use 'Unknown' or any default value you prefer if the cookie doesn't exist
     context = {
-        'app' : 'UMKaMi',
+        'app': 'UMKaMi',
         'name': request.user.username,
         'class': 'PBP F',
         'products': products,
-        'last_login': request.COOKIES['last_login'],
+        'last_login': last_login,
     }
 
     return render(request, "home.html", context)
@@ -27,14 +29,14 @@ def create_product(request):
     form = ProductForm(request.POST or None)
 
     if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            response = HttpResponseRedirect(reverse("main:home_view"))
-            response.set_cookie('last_login', str(datetime.datetime.now()))
-            return response
+        product = form.save(commit=False)
+        product.user = request.user  # Simpan user yang sedang login
+        product.save()
+        response = HttpResponseRedirect(reverse("main:home_view"))
+        response.set_cookie('last_login', str(datetime.datetime.now()))
+        return response
 
     context = {'form': form}
-
     return render(request, "create_product.html", context)
 
 def show_xml(request):
@@ -72,7 +74,9 @@ def login_user(request):
       if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('main:show_main')
+            response = redirect('main:home_view')
+            response.set_cookie('last_login', str(datetime.datetime.now()))  #
+            return response
 
    else:
       form = AuthenticationForm(request)

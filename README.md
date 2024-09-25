@@ -1114,17 +1114,25 @@ Agar last_login ditampilkan maka saya perlu untuk melakukan penambahan kode di b
 Langkah terakhir, saya perlu mempersiapkan aplikasi ini untuk environment production. Untuk itu, saya perlu menambahkan kode pada direktori UMKaMi/settings.py dengan kode berikut :
 PRODUCTION = os.getenv("PRODUCTION", False)
 DEBUG = not PRODUCTION
-Check 2 : Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun di lokal.
+Check 2 : 
+
+Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun di lokal.
+
+
 Untuk menyelesaikan checklist 2, saya perlu membuat dua akun pada form register di aplikasi saya.
+![alt text](<Screenshot 2024-09-25 at 11.22.15.png>) ![alt text](<Screenshot 2024-09-25 at 11.21.47.png>)
 
 
 Kemudian, saya login dengan akun tersebut.
 
 
+
 Lalu, saya membuat 3 product dummy beserta dengan deskripsi, harga dan quantity-nya.
+![alt text](<Screenshot 2024-09-25 at 11.23.34.png>)
 
 
 Produk akan muncul di bagian depan laman utama.
 
+![alt text](<Screenshot 2024-09-25 at 11.24.42.png>) ![alt text](<Screenshot 2024-09-25 at 11.23.44.png>)
 
 Sekian & Terima Kasih

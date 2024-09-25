@@ -26,8 +26,8 @@
             <td>{{ p.description }}</td>
             <td>{{ p.price }}</td>
             <td>{{ p.quantity }}</td>
-            <td><a href="{% url 'show_xml_by_id' p.id %}">View XML</a>
-                <a href="{% url 'show_json_by_id' p.id %}">View JSON</a> 
+            <td><a href="{% url 'main:show_xml_by_id' p.id %}">View XML</a>
+                <a href="{% url 'main:show_json_by_id' p.id %}">View JSON</a> 
             </td>
             
           </tr>
@@ -36,7 +36,7 @@
       </table>
       {% endif %}
       <br />
-      <a href="{% url 'create_product' %}">
+      <a href="{% url 'main:create_product' %}">
         <button>Add New Product</button>
       </a>
       <a href="{% url 'main:logout' %}">
