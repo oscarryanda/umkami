@@ -1,4 +1,4 @@
-﻿# Toko Ungu !!
+﻿# Toko Ungu
 
 **_Disusun oleh : Jeremia Rangga Setyawan | 2306245775 | PBP B_**
 
@@ -1521,6 +1521,7 @@ Pada CSS, jika terdapat beberapa selector yang diterapkan pada suatu HTML, maka 
     color: red;
   }
   ```
+
   Dalam contoh tersebut, paragraf akan berwarna biru karena aturan `color: blue` menggunakan `!important`.
 
 2. **Specificity (Keutamaan Spesifik)**:
