@@ -5,28 +5,27 @@
 {% endblock meta %}
 
 {% block content %}
+<div class="min-h-screen flex items-center justify-center bg-green-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8">
+    <h1 class="text-3xl font-bold text-center text-green-600 mb-6">Register</h1>
 
-<div class="login">
-  <h1>Register</h1>
+    <form method="POST" class="form-style space-y-6 bg-white shadow-lg rounded-lg p-8">
+      {% csrf_token %}
+      <div class="space-y-4">
+        {{ form.as_p }}
+      </div>
+      <div class="flex justify-center">
+        <button type="submit" name="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">Daftar</button>
+      </div>
+    </form>
 
-  <form method="POST">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-      <tr>
-        <td></td>
-        <td><input type="submit" name="submit" value="Daftar" /></td>
-      </tr>
-    </table>
-  </form>
-
-  {% if messages %}
-  <ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
+    {% if messages %}
+    <ul class="mt-4">
+      {% for message in messages %}
+      <li class="text-yellow-600">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
 </div>
-
 {% endblock content %}

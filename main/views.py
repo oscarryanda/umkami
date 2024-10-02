@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from main.forms import ProductForm
 from main.models import Product
 from django.http import HttpResponseRedirect, HttpResponse
@@ -24,6 +24,25 @@ def home_view(request):
     }
 
     return render(request, "home.html", context)
+
+def delete_product(request, id):
+    product = get_object_or_404(Product, id=id)
+    if request.method == 'POST':
+        product.delete()
+        return redirect('main:home_view')
+    return render(request, 'confirm_delete.html', {'product': product})
+
+
+def edit_product(request, id):
+    product = get_object_or_404(Product, id=id)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('main:home_view')
+    else:
+        form = ProductForm(instance=product)
+    return render(request, 'edit_product.html', {'form': form, 'product': product})
 
 def create_product(request):
     form = ProductForm(request.POST or None)
@@ -88,3 +107,4 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+

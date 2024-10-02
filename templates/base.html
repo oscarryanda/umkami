@@ -15,22 +15,44 @@
       crossorigin="anonymous"
     />
     {% block meta %} {% endblock meta %}
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{% static 'css/global.css' %}">
   </head>
   <body>
     <!-- Navbar -->
     <nav
-      class="navbar"
-      data-bs-theme="dark"
-      style="background-color: #f5e907"
-    >
-      <div class="container-fluid">
-        <a
-          class="navbar-brand"
-          href="#"
-          ><b>UMKaMi</b></a
-        >
+   class="navbar navbar-expand-lg"
+   data-bs-theme="dark"
+   style="background-color: #f5e907"
+>
+   <div class="container-fluid">
+      <a class="navbar-brand" href="#"><b>UMKaMi</b></a>
+      <button
+         class="navbar-toggler"
+         type="button"
+         data-bs-toggle="collapse"
+         data-bs-target="#navbarNav"
+         aria-controls="navbarNav"
+         aria-expanded="false"
+         aria-label="Toggle navigation"
+      >
+         <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+         <ul class="navbar-nav">
+            <li class="nav-item">
+               <a class="nav-link" href="{% url 'main:home_view' %}">Home</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="{% url 'main:create_product' %}">Add Product</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link text-danger" href="{% url 'main:logout' %}">Logout</a>
+            </li>
+         </ul>
       </div>
-    </nav>
+   </div>
+</nav>
     <!-- END Navbar -->
     {% block content %} {% endblock content %}
 
