@@ -1253,6 +1253,9 @@ Responsive design sangat penting karena perangkat yang digunakan untuk mengakses
   }
   ```
 
+  Visualisasi:
+  https://camo.githubusercontent.com/d713c3661f8460987c7da2c86ce0612b8d47a57c973d865caf9d4fd3b4011ca0/68747470733a2f2f7777772e6176616a6176612e636f6d2f7475746f7269616c732f636173636164696e672d7374796c652d7368656574732f686f772d6172652d6d617267696e732d626f72646572732d70616464696e672d616e642d636f6e74656e742d72656c617465642f686f772d6172652d6d617267696e732d626f72646572732d70616464696e672d616e642d636f6e74656e742d72656c617465642d30312e676966
+
 ## 5) Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step!
 
 1. **Menerapkan Tailwind pada Django**: Menambahkan CDN Tailwind ke dalam `base.html`.
@@ -1304,5 +1307,3 @@ Responsive design sangat penting karena perangkat yang digunakan untuk mengakses
 
 Sekian dan terima kasih.
 ```
-
-Pastikan kode dan instruksi ini sudah sesuai dengan implementasimu. Jika ada penyesuaian lagi, tinggal disesuaikan dengan kebutuhan.
