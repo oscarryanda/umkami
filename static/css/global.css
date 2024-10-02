@@ -22,3 +22,10 @@
 .button-primary:hover {
     background-color: #48bb78; /* Hijau */
 }
+
+/* Mengisolasi gaya bootstrap agar tidak terpengaruh oleh Tailwind */
+.bootstrap-container * {
+    all: unset;
+    all: revert;
+  }
+  

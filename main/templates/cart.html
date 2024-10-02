@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen bg-yellow-50 p-6">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-bold text-center text-green-600 mb-6">Your Cart</h2>
+    
+    {% if cart.cartproduct_set.all %}
+    <ul class="list-group">
+      {% for cartproduct in cart.cartproduct_set.all %}
+      <li class="list-group-item d-flex justify-content-between align-items-center cart-item-card" style="background-color: #fff9c4; border-radius: 10px;">
+        <span>
+          <strong>{{ cartproduct.product.name }} ({{ cartproduct.quantity }})</strong>
+        </span>
+        <span>${{ cartproduct.product.price|floatformat:2 }}</span>
+        <form method="POST" action="{% url 'main:remove_from_cart' cartproduct.product.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Remove</button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+    
+    <div class="mt-4 text-center">
+      <a href="#" class="btn btn-success">Checkout</a>
+    </div>
+    {% else %}
+    <div class="text-center">
+      <img src="{% static 'images/no-products.png' %}" alt="No products" class="w-64 h-64 mx-auto mb-4"/>
+      <p class="text-gray-600 text-lg">Your cart is currently empty.</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock content %}

@@ -1135,4 +1135,174 @@ Produk akan muncul di bagian depan laman utama.
 
 ![alt text](<Screenshot 2024-09-25 at 11.24.42.png>) ![alt text](<Screenshot 2024-09-25 at 11.23.44.png>)
 
-Sekian & Terima Kasih
+Berikut adalah template lengkap untuk file `README.md` yang sudah disesuaikan dengan preferensimu dan mengikuti kode yang telah kamu berikan:
+
+```markdown
+# Tugas 5
+
+## 1) Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+
+Pada CSS, jika terdapat beberapa selector yang diterapkan pada suatu elemen HTML, ada aturan prioritas yang menentukan selector mana yang akan digunakan. Prioritas atau specificity diatur berdasarkan beberapa faktor: jenis selector, urutan penulisan, dan penggunaan aturan `!important` dalam CSS. Berikut adalah penjelasannya:
+
+### Penggunaan !important:
+Selector yang menggunakan aturan `!important` akan selalu memiliki prioritas tertinggi, tanpa memperhatikan nilai specificity-nya. Jika ada beberapa selector yang sama-sama menggunakan `!important`, maka selector dengan specificity yang lebih tinggi akan digunakan.
+
+Contoh:
+```css
+p {
+  color: blue !important;
+}
+p {
+  color: red;
+}
+```
+Pada contoh ini, paragraf akan berwarna biru karena aturan `color: blue` menggunakan `!important`.
+
+### Specificity (Keutamaan Spesifik):
+Specificity dihitung berdasarkan tipe selector yang digunakan. Formula untuk menghitung specificity adalah:
+- Inline style: Mendapat nilai tertinggi (1000).
+- ID selector: Mendapat nilai 100.
+- Class, pseudo-class, attribute selector: Mendapat nilai 10.
+- Tag (element) selector: Mendapat nilai 1.
+- Universal selector (*) dan combinators (+, >, ~): Tidak menambah nilai specificity.
+
+Contoh:
+```css
+.class-selector {
+  color: green;
+}
+div {
+  color: red;
+}
+#id-selector {
+  color: blue;
+}
+```
+Jika sebuah elemen div memiliki class `.class-selector` dan ID `#id-selector`, maka elemen tersebut akan berwarna biru karena ID selector memiliki nilai specificity tertinggi (100).
+
+### Urutan Penulisan (Cascade):
+Jika dua atau lebih aturan CSS memiliki nilai specificity yang sama, maka aturan yang ditulis paling akhir dalam stylesheet akan diutamakan.
+
+Contoh:
+```css
+p {
+  color: green;
+}
+p {
+  color: red;
+}
+```
+Pada contoh ini, meskipun kedua selector memiliki nilai specificity yang sama, paragraf akan berwarna merah karena aturan tersebut ditulis paling akhir.
+
+## 2) Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!
+
+Responsive design sangat penting karena perangkat yang digunakan untuk mengakses web bervariasi dalam ukuran layar, mulai dari ponsel hingga komputer desktop. Responsive design memastikan bahwa tampilan dan fungsi situs web dapat menyesuaikan berbagai perangkat, memberikan pengalaman pengguna yang konsisten dan optimal.
+
+### Alasan pentingnya responsive design:
+1. **Peningkatan Penggunaan Perangkat Mobile**: Sebagian besar pengguna internet mengakses web melalui perangkat mobile. Responsive design memastikan tampilan situs web tetap nyaman dilihat di layar yang lebih kecil.
+2. **Pengalaman Pengguna yang Konsisten**: Memastikan tampilan yang konsisten di berbagai perangkat, memudahkan pengguna saat berpindah perangkat.
+3. **Efisiensi Biaya dan Pemeliharaan**: Lebih efisien mengembangkan satu situs yang responsif dibandingkan mengembangkan beberapa situs terpisah.
+4. **Adaptasi pada Perkembangan Teknologi**: Teknologi perangkat terus berkembang, dan responsive design memastikan aplikasi web siap menghadapi perubahan ukuran layar.
+
+### Contoh aplikasi yang sudah menerapkan responsive design:
+- [YouTube](https://www.youtube.com)
+- [Tokopedia](https://www.tokopedia.com)
+
+### Contoh aplikasi yang belum menerapkan responsive design:
+- [Academic UI](https://academic.ui.ac.id)
+- [PBP CS UI](https://pbp.cs.ui.ac.id/web)
+
+## 3) Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+
+- **Margin**: Ruang kosong di luar elemen yang memisahkan elemen dari elemen lain.
+  ```css
+  .example {
+    margin: 20px;
+  }
+  ```
+  
+- **Border**: Garis yang mengelilingi elemen, berada di antara padding dan margin.
+  ```css
+  .example {
+    border: 2px solid black;
+  }
+  ```
+  
+- **Padding**: Ruang kosong di dalam elemen, antara konten elemen dan border.
+  ```css
+  .example {
+    padding: 20px;
+  }
+  ```
+
+## 4) Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+
+- **Flexbox**: Model tata letak satu dimensi yang mempermudah pengaturan elemen dalam satu arah (baris atau kolom).
+  ```css
+  .container {
+    display: flex;
+    flex-direction: row;
+  }
+  ```
+  
+- **CSS Grid**: Model tata letak dua dimensi yang memungkinkan pengaturan elemen dalam baris dan kolom.
+  ```css
+  .container {
+    display: grid;
+    grid-template-columns: 100px 200px auto;
+  }
+  ```
+
+## 5) Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step!
+
+1. **Menerapkan Tailwind pada Django**: Menambahkan CDN Tailwind ke dalam `base.html`.
+    ```html
+    <head>
+      <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    ```
+
+2. **Menggunakan Static Files**: Menambahkan `WhiteNoiseMiddleware` di `settings.py` dan mengonfigurasi `STATIC_URL`.
+    ```python
+    MIDDLEWARE = [
+      'django.middleware.security.SecurityMiddleware',
+      'whitenoise.middleware.WhiteNoiseMiddleware',
+      ...
+    ]
+    STATIC_URL = '/static/'
+    ```
+
+3. **Implementasi Edit dan Delete Produk**:
+    - Membuat fungsi `edit_product` dan `delete_product` di `views.py`.
+    ```python
+    def edit_product(request, id):
+        product = Product.objects.get(pk=id)
+        form = ProductForm(request.POST or None, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('main:show_main')
+        return render(request, 'edit_product.html', {'form': form})
+
+    def delete_product(request, id):
+        product = Product.objects.get(pk=id)
+        product.delete()
+        return redirect('main:show_main')
+    ```
+
+4. **Routing**: Menambahkan routing untuk edit dan delete product di `urls.py`.
+    ```python
+    path('edit-product/<uuid:id>/', edit_product, name='edit_product'),
+    path('delete/<uuid:id>/', delete_product, name='delete_product'),
+    ```
+
+5. **Desain dengan Tailwind**: Memodifikasi template HTML untuk membuat desain menggunakan Tailwind CSS. Misalnya, untuk menambahkan tombol di halaman produk.
+    ```html
+    <a href="{% url 'main:edit_product' product.id %}">
+      <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">Edit</button>
+    </a>
+    ```
+
+Sekian dan terima kasih.
+```
+
+Pastikan kode dan instruksi ini sudah sesuai dengan implementasimu. Jika ada penyesuaian lagi, tinggal disesuaikan dengan kebutuhan.

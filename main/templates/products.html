@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Products</h1>
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4 mb-4">
+            <div class="card product-card" style="transition: transform 0.3s;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text">Price: ${{ product.price }}</p>
+                    <p class="card-text">Category: {{ product.category.name }}</p>
+                    <p class="card-text">Quantity: {{ product.quantity }}</p>
+                    <form method="POST" action="{% url 'main:add_to_cart' product.id %}">
+                        {% csrf_token %}
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" name="quantity" value="1" min="1" max="{{ product.quantity }}" required>
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.product-card').forEach(card => {
+        card.addEventListener('mouseover', () => {
+            card.style.transform = 'scale(1.05)';
+        });
+        card.addEventListener('mouseout', () => {
+            card.style.transform = 'scale(1)';
+        });
+    });
+</script>
+{% endblock %}

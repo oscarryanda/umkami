@@ -1,67 +1,68 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UMKaMi</title>
+    <!-- Bootstrap CSS -->
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/3lKp5BY5IC5gvJ3xyDzddX2d1txprmXw67dyvd"
+        crossorigin="anonymous"
     />
-    {% block meta %} {% endblock meta %}
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="{% static 'css/global.css' %}">
-  </head>
-  <body>
-    <!-- Navbar -->
-    <nav
-   class="navbar navbar-expand-lg"
-   data-bs-theme="dark"
-   style="background-color: #f5e907"
->
-   <div class="container-fluid">
-      <a class="navbar-brand" href="#"><b>UMKaMi</b></a>
-      <button
-         class="navbar-toggler"
-         type="button"
-         data-bs-toggle="collapse"
-         data-bs-target="#navbarNav"
-         aria-controls="navbarNav"
-         aria-expanded="false"
-         aria-label="Toggle navigation"
-      >
-         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-         <ul class="navbar-nav">
-            <li class="nav-item">
-               <a class="nav-link" href="{% url 'main:home_view' %}">Home</a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link" href="{% url 'main:create_product' %}">Add Product</a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link text-danger" href="{% url 'main:logout' %}">Logout</a>
-            </li>
-         </ul>
-      </div>
-   </div>
-</nav>
-    <!-- END Navbar -->
-    {% block content %} {% endblock content %}
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Bootstrap Script -->
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="{% static 'global.css' %}">
+</head>
+<body>
+
+    <!-- Tailwind Navbar -->
+    <nav class="bg-yellow-500 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-white text-2xl font-bold">UMKaMi</a>
+            <div class="hidden md:flex space-x-4">
+                <a href="{% url 'main:home_view' %}" class="text-white hover:text-gray-200">Home</a>
+                <a href="{% url 'main:products' %}" class="text-white hover:text-gray-200">Products</a>
+                <a href="{% url 'main:categories' %}" class="text-white hover:text-gray-200">Categories</a>
+                <a href="{% url 'main:cart' %}" class="text-white hover:text-gray-200">Cart</a>
+                <a href="#" class="text-white hover:text-gray-200">Welcome, {{ user.username }}</a>
+                <a href="{% url 'main:logout' %}" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">Logout</a>
+            </div>
+            <button class="md:hidden text-white focus:outline-none">
+                <!-- Hamburger Icon for mobile -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="hidden md:hidden bg-yellow-500 p-4">
+        <a href="{% url 'main:home_view' %}" class="block text-white hover:text-gray-200 mb-2">Home</a>
+        <a href="{% url 'main:products' %}" class="block text-white hover:text-gray-200 mb-2">Products</a>
+        <a href="{% url 'main:categories' %}" class="block text-white hover:text-gray-200 mb-2">Categories</a>
+        <a href="{% url 'main:cart' %}" class="block text-white hover:text-gray-200 mb-2">Cart</a>
+        <a href="#" class="block text-white hover:text-gray-200 mb-2">Welcome, {{ user.username }}</a>
+        <a href="{% url 'main:logout' %}" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">Logout</a>
+    </div>
+
+    <!-- Main content block -->
+    <div class="container mx-auto py-6">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Bootstrap JS (optional) -->
     <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-q0CzVqvMOzZ6Jp2VhymMBgqch42kYXaSkIBqsv6eWv7pS0X00yPBHk0niP+6Z8vE"
+        crossorigin="anonymous"
     ></script>
-    <!-- END Bootstrap Script -->
-  </body>
+
+</body>
 </html>

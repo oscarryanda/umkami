@@ -9,6 +9,8 @@ from django.contrib.auth import authenticate, login , logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 import datetime
+from .models import Product, Category, Cart, CartProduct
+
 
 
 @login_required(login_url='/login')
@@ -108,3 +110,57 @@ def logout_user(request):
     response.delete_cookie('last_login')
     return response
 
+def categories_view(request):
+    return render(request, 'categories.html')
+
+def cart_view(request):
+    return render(request, 'cart.html')
+
+
+def products_view(request, category_id=None):
+    if category_id:
+        products = Product.objects.filter(category_id=category_id)
+    else:
+        products = Product.objects.all()
+    return render(request, 'products.html', {'products': products})
+
+def categories_view(request):
+    categories = Category.objects.all()
+    return render(request, 'categories.html', {'categories': categories})
+
+def products_by_category(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    products = Product.objects.filter(category=category)
+    return render(request, 'products.html', {'products': products, 'category': category})
+
+
+def cart_view(request):
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    cart_products = cart.cartproduct_set.all()
+
+    # Calculate total price for each cart product
+    for cart_product in cart_products:
+        cart_product.total_price = cart_product.product.price * cart_product.quantity
+
+    return render(request, 'cart.html', {'cart': cart, 'cart_products': cart_products})
+
+
+
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    cart_product, created = CartProduct.objects.get_or_create(cart=cart, product=product)
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity', 1))
+        cart_product.quantity += quantity
+        cart_product.save()
+    return redirect('main:cart')  # Updated with app namespace
+
+
+def remove_from_cart(request, product_id):
+    cart = Cart.objects.get(user=request.user)
+    product = get_object_or_404(Product, id=product_id)
+    cart_product = CartProduct.objects.get(cart=cart, product=product)
+    if request.method == 'POST':
+        cart_product.delete()
+    return redirect('main:cart')
