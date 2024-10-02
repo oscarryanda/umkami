@@ -1513,14 +1513,14 @@ Pada CSS, jika terdapat beberapa selector yang diterapkan pada suatu HTML, maka 
 - Selector yang menggunakan aturan `!important` akan selalu memiliki prioritas tertinggi, tanpa memperhatikan nilai specificity-nya.
 - Jika ada beberapa selector yang sama-sama menggunakan `!important`, maka aturan dengan specificity yang lebih tinggi akan digunakan.
   Contoh kode :
-  `css
-	p {
-	    color: blue !important; /* Prioritas tertinggi */
-	}
-	p {
-	    color: red;
-	}
-	`
+  ```css
+  p {
+    color: blue !important; /* Prioritas tertinggi */
+  }
+  p {
+    color: red;
+  }
+  ```
   Dalam contoh tersebut, paragraf akan berwarna biru karena aturan `color: blue` menggunakan `!important`.
 
 2. **Specificity (Keutamaan Spesifik)**:
@@ -1533,36 +1533,40 @@ Pada CSS, jika terdapat beberapa selector yang diterapkan pada suatu HTML, maka 
 - **Universal selector (`*`) dan combinators (`+`, `>`, `~`)**: Tidak menambah nilai specificity.
   Jika ada beberapa selector yang berlaku pada elemen yang sama, selector dengan specificity lebih tinggi akan diutamakan.
   Contoh kode :
+
   ```css
-  /_ Nilai specificity: 10 _/
+  /* Nilai specificity: 10 */
   .class-selector {
-  color: green;
+    color: green;
   }
 
-      /* Nilai specificity: 1 */
-      div {
-          color: red;
-      }
+  /* Nilai specificity: 1 */
+  div {
+    color: red;
+  }
 
-      /* Nilai specificity: 100 */
-      #id-selector {
-          color: blue;
-      }
-      ```
+  /* Nilai specificity: 100 */
+  #id-selector {
+    color: blue;
+  }
+  ```
+
       Dalam contoh ini, jika sebuah elemen `div` memiliki class `.class-selector` dan ID `#id-selector`, maka warna teks elemen tersebut akan **biru** karena ID selector memiliki nilai specificity tertinggi (100).
 
 3.  **Urutan Penulisan (Cascade)**:
     Jika dua atau lebih aturan CSS memiliki nilai specificity yang sama, aturan yang ditulis paling akhir dalam stylesheet akan diutamakan.
     Contoh kode :
+
     ```css
     p {
-    color: green;
+      color: green;
     }
 
-        p {
-            color: red;
-        }
-        ```
+    p {
+      color: red;
+    }
+    ```
+
         Dalam contoh ini, meskipun kedua selector memiliki nilai specificity yang sama, paragraf akan berwarna **merah** karena aturan tersebut ditulis paling akhir.
 
 ### 2) Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!
@@ -1572,15 +1576,19 @@ Pada CSS, jika terdapat beberapa selector yang diterapkan pada suatu HTML, maka 
 Berikut adalah beberapa alasan mengapa **responsive design** penting dalam pengembangan aplikasi web:
 
 1. **Peningkatan Penggunaan Perangkat Mobile**
+
    Sebagian besar pengguna internet saat ini mengakses web melalui perangkat mobile, seperti smartphone ataupun tablet. Dengan responsive design, tampilan situs web otomatis menyesuaikan ukuran layar perangkat yang lebih kecil, seperti smartphone, sehingga pengguna tetap dapat menikmati pengalaman yang nyaman tanpa harus melakukan zoom in atau zoom out.
 
 2. **Pengalaman Pengguna yang Konsisten**
+
    Responsive design memungkinkan tampilan yang konsisten di berbagai perangkat. Navigasi, layout, dan konten dapat disesuaikan agar tetap terlihat baik, sehingga pengguna tidak merasa kebingungan atau kesulitan saat berpindah dari satu perangkat ke perangkat lainnya.
 
 3. **Efisiensi Biaya dan Pemeliharaan**
+
    Mengembangkan satu situs yang responsif jauh lebih efisien secara biaya dan lebih mudah dipelihara daripada mengembangkan beberapa situs terpisah untuk desktop dan perangkat mobile. Setiap perubahan hanya perlu diterapkan satu kali dan dapat secara otomatis berlaku di semua perangkat.
 
 4. **Adaptasi pada Perkembangan Teknologi**
+
    Teknologi perangkat terus berkembang, baik dari segi ukuran layar, resolusi, maupun bentuk interaksi (seperti touch atau click). Responsive design memastikan aplikasi web siap menghadapi perkembangan ini, karena tata letak dan elemen akan menyesuaikan diri dengan lebar dan tinggi layar tanpa memerlukan penyesuaian besar-besaran.
 
 Contoh aplikasi yang sudah menerapkan responsive design :
@@ -1635,15 +1643,17 @@ Dalam CSS, **margin**, **border**, dan **padding** adalah properti yang berhubun
 - **Fungsi**: Menambah jarak antara konten elemen dan border, memberikan ruang untuk teks atau konten di dalam elemen.
 - **Cara Implementasi**: Padding dapat diatur untuk semua sisi atau disesuaikan per sisi (atas, bawah, kiri, kanan), sama seperti margin.
 - **Contoh Penggunaan**:
-  `css
-	.example {
-	    padding: 20px;            /* Padding di semua sisi */
-	    padding-top: 10px;        /* Padding khusus bagian atas */
-	    padding-right: 15px;      /* Padding khusus bagian kanan */
-	    padding-bottom: 20px;     /* Padding khusus bagian bawah */
-	    padding-left: 25px;       /* Padding khusus bagian kiri */
-	}
-	`
+
+  ```css
+  .example {
+    padding: 20px; /* Padding di semua sisi */
+    padding-top: 10px; /* Padding khusus bagian atas */
+    padding-right: 15px; /* Padding khusus bagian kanan */
+    padding-bottom: 20px; /* Padding khusus bagian bawah */
+    padding-left: 25px; /* Padding khusus bagian kiri */
+  }
+  ```
+
   **Perbedaan Visual antara Margin, Border, dan Padding**:
   ![How are margins, borders, padding, and content related? - Web Tutorials -  avajava.com](https://www.avajava.com/tutorials/cascading-style-sheets/how-are-margins-borders-padding-and-content-related/how-are-margins-borders-padding-and-content-related-01.gif)
 
@@ -1729,10 +1739,36 @@ Dalam CSS, **margin**, **border**, dan **padding** adalah properti yang berhubun
      </script>
    </head>
    ```
+2. Agar saya dapate menggunakan static files pada aplikasi saya, maka saya perlu menambahkan middleware pada berkas `settings.py` sebagai berikut :
+
+```python
+...
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', #Tambahkan tepat di bawah SecurityMiddleware
+    ...
+]
+...
+```
+
+3. Lalu pada `settings.py` pastikan varieabel `STATIC_ROOT`, `STATICFILES_DIRS`, dan `STATIC_URL` di konfigurasi sebagai berikut :
+
+```python
+...
+STATIC_URL = '/static/'
+if DEBUG:
+    STATICFILES_DIRS = [
+        BASE_DIR / 'static' # merujuk ke /static root project pada mode development
+    ]
+else:
+    STATIC_ROOT = BASE_DIR / 'static' # merujuk ke /static root project pada mode production
+...
+
+```
 
 ##### Check 1 : Implementasikan fungsi untuk menghapus dan mengedit _product_.
 
-2. Bukalah `main/views.py` dan buatlah fungsi baru bernama `edit_product` yang akan menerima parameter `request` dan `id` sebagai berikut :
+4. Bukalah `main/views.py` dan buatlah fungsi baru bernama `edit_product` yang akan menerima parameter `request` dan `id` sebagai berikut :
 
    ```python
    def edit_product(request, id):
@@ -1748,14 +1784,14 @@ Dalam CSS, **margin**, **border**, dan **padding** adalah properti yang berhubun
        return render(request, "edit_product.html", context)
    ```
 
-3. Saya juga perlu menambahkan import pada file `views.py` :
+5. Saya juga perlu menambahkan import pada file `views.py` :
 
    ```python
    from django.shortcuts import .., reverse
    from django.http import .., HttpResponseRedirect
    ```
 
-4. Saya perlu membuat berkas HTML baru bernama `edit_product.html` pada subdirektori `main/templates`. Berkas HTML tersebut berisikan kode sebagai berikut :
+6. Saya perlu membuat berkas HTML baru bernama `edit_product.html` pada subdirektori `main/templates`. Berkas HTML tersebut berisikan kode sebagai berikut :
 
    ```html
    {% extends 'base.html' %} {% load static %} {% block content %}
@@ -1781,14 +1817,14 @@ Dalam CSS, **margin**, **border**, dan **padding** adalah properti yang berhubun
    {% endblock %}
    ```
 
-5. Saya juga perlu melakukan routing untuk fitur edit product pada aplikasi saya. Caranya adalah menambahkan import dan path url pada berkas `main/urls.py` sebagai berikut :
+7. Saya juga perlu melakukan routing untuk fitur edit product pada aplikasi saya. Caranya adalah menambahkan import dan path url pada berkas `main/urls.py` sebagai berikut :
    ```python
    from main.views import edit_product
    ...
    path('edit-product/<uuid:id>', edit_product, name='edit_product'),
    ...
    ```
-6. Agar edit product dapat diakses oleh pengguna, maka saya perlu membuat tombol di laman utama pada aplikasi saya. Caranya adalah menambah baris kode berikut pada `main/templates/main.html`, pastikan kode berikut berada di posisi yang sejajar dengan elemen `<td>` terakhir :
+8. Agar edit product dapat diakses oleh pengguna, maka saya perlu membuat tombol di laman utama pada aplikasi saya. Caranya adalah menambah baris kode berikut pada `main/templates/main.html`, pastikan kode berikut berada di posisi yang sejajar dengan elemen `<td>` terakhir :
    ```html
    ...
    <tr>
@@ -1801,47 +1837,54 @@ Dalam CSS, **margin**, **border**, dan **padding** adalah properti yang berhubun
    </tr>
    ...
    ```
-7. Untuk mengimplementasikan fitur hapus pada aplikasi saya, maka saya perlu membuat fungsi baru bernama `delete_product` yang menerima parameter request dan id pada `main/views.py`. Berikut adalah kodenya :
+9. Untuk mengimplementasikan fitur hapus pada aplikasi saya, maka saya perlu membuat fungsi baru bernama `delete_product` yang menerima parameter request dan id pada `main/views.py`. Berikut adalah kodenya :
    ```python
    def delete_product(request, id):
        product = Product.objects.get(pk = id)
        product.delete()
        return HttpResponseRedirect(reverse('main:show_main'))
    ```
-8. Saya juga perlu melakukan routing pada fitur delete product dengan cara menambahkan import dan path url pada berkas `main/urls.py`. Berikut kode penambahannya :
-   ```python
-   from main.views import delete_product
-   ...
-   path('delete/<uuid:id>', delete_product, name='delete_product'),
-   ...
-   ```
-9. Sekarang, saya perlu menambahkan tombol delete product pada laman utama aplikasi saya. Sama seperti tadi, saya perlu menambahkan tombol untuk menghapus produk di berkasi `main/templates/main.html`. Kodenya sebagai berikut :
-   ```html
-   ...
-   <tr>
-     ...
-     <td>
-       <a href="{% url 'main:edit_product' product_entry.pk %}">
-         <button>Edit</button>
-       </a>
-     </td>
-     <td>
-       <a href="{% url 'main:delete_product' product_entry.pk %}">
-         <button>Delete</button>
-       </a>
-     </td>
-   </tr>
-   ...
-   ```
+10. Saya juga perlu melakukan routing pada fitur delete product dengan cara menambahkan import dan path url pada berkas `main/urls.py`. Berikut kode penambahannya :
+
+```python
+from main.views import delete_product
+...
+path('delete/<uuid:id>', delete_product, name='delete_product'),
+...
+```
+
+11. Sekarang, saya perlu menambahkan tombol delete product pada laman utama aplikasi saya. Sama seperti tadi, saya perlu menambahkan tombol untuk menghapus produk di berkasi `main/templates/main.html`. Kodenya sebagai berikut :
+
+```html
+...
+<tr>
+  ...
+  <td>
+    <a href="{% url 'main:edit_product' product_entry.pk %}">
+      <button>Edit</button>
+    </a>
+  </td>
+  <td>
+    <a href="{% url 'main:delete_product' product_entry.pk %}">
+      <button>Delete</button>
+    </a>
+  </td>
+</tr>
+...
+```
 
 ##### Check 2 : Kustomisasi desain pada _template_ HTML yang telah dibuat pada tugas-tugas sebelumnya menggunakan CSS atau CSS framework (seperti Bootstrap, Tailwind, Bulma).
 
-10. Untuk melakukan kustomisasi login, register, dan tambah product, saya hanya perlu memodifikasi template yang diberikan di tutorial agar sesuai dengan warna atau desain yang saya inginkan. Saya hanya perlu menambahkan class dari tailwindcss untuk merubah tampilan laman tersebut. Saya juga menambahkan `<style>` di beberapa bagian laman. Kode lengkap dapat dilihat di github saya.
-11. Untuk laman daftar product, saya juga melakukan hal yang kurang lebih sama di step 10, saya hanya mengubah beberapa bagian menggunakan tailwind css. Kode lengkap dapat dilihat di github saya.
-12. Pembuatan navigation bar pada aplikasi saya dengan cara membuat berkas baru pada folder `/templates/navbar.html`. Saya juga menggunakan template dasar dari tutorial, tetapi saya juga melakukan modifikasi menggunakan class tailwind css. Untuk kode lengkap dapat dilihat di github saya.
-13. Saya juga perlu menghubungkan laman `main/templates/create_product` dan `main/templates/edit_product` dengan menambahkan tags `include`:
+12. Untuk melakukan kustomisasi login, register, dan tambah product, saya hanya perlu memodifikasi template yang diberikan di tutorial agar sesuai dengan warna atau desain yang saya inginkan. Saya hanya perlu menambahkan class dari tailwindcss untuk merubah tampilan laman tersebut. Saya juga menambahkan `<style>` di beberapa bagian laman. Kode lengkap dapat dilihat di github saya.
+13. Untuk laman daftar product, saya juga melakukan hal yang kurang lebih sama di step 10, saya hanya mengubah beberapa bagian menggunakan tailwind css. Kode lengkap dapat dilihat di github saya.
+14. Pembuatan navigation bar pada aplikasi saya dengan cara membuat berkas baru pada folder `/templates/navbar.html`. Saya juga menggunakan template dasar dari tutorial, tetapi saya juga melakukan modifikasi menggunakan class tailwind css. Untuk kode lengkap dapat dilihat di github saya.
+15. Saya juga perlu menghubungkan laman `main/templates/create_product` dan `main/templates/edit_product` dengan menambahkan tags `include`:
     ```html
-    {% extends 'base.html' %} {% block content %} {% include 'navbar.html' %} ... {% endblock content%}
+    {% extends 'base.html' %} 
+    {% block content %} 
+    {% include 'navbar.html' %} 
+    ... 
+    {% endblock content%}
     ```
 
 Sekian dan terima kasih
