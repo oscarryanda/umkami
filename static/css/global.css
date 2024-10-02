@@ -1,0 +1,29 @@
+input,
+select,
+textarea {
+  width: 100%; /* Lebar penuh agar sesuai dengan lebar tombol */
+  border: 2px solid #dcdcdc;
+  border-radius: 8px;
+  padding: 10px;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  font-size: 16px;
+  background-color: white;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #7f3dff;
+  box-shadow: 0 0 5px rgba(127, 61, 255, 0.5);
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: #9f73ff;
+}
+
+label {
+  color: #7f3dff;
+  font-weight: bold;
+}

@@ -1,14 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from main.forms import ProductForm
 from main.models import Product
-from django.http import HttpResponse
 from django.core import serializers
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
 @login_required(login_url='/login')
@@ -17,6 +16,7 @@ def show_main(request):
     context = {
         'app' : 'Toko Ungu',
         'name': request.user.username,
+        'npm': '2306245775',
         'class': 'PBP B',
         'products': products,
         'last_login': request.COOKIES['last_login'],
@@ -86,3 +86,23 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+
+def edit_product(request, id):
+    product = Product.objects.get(pk = id)
+
+    form = ProductForm(request.POST or None, instance=product)
+
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+
+def delete_product(request, id):
+
+    product = Product.objects.get(pk = id)
+
+    product.delete()
+
+    return HttpResponseRedirect(reverse('main:show_main'))

@@ -1,86 +1,50 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block meta %}
+<title>Toko Ungu</title>
+{% endblock meta %} {% block content %} {% include 'navbar.html' %}
 
-<!-- Name Card -->
-<div class="p-3">
-  <div class="card">
-    <div class="card-header">
-      <b><em>{{app}}</em></b> made with ❤️ By :
+<div class="overflow-x-hidden px-4 md:px-8 pb-8 pt-24 min-h-screen bg-purple-50 flex flex-col">
+  <div class="p-2 mb-6 relative">
+    <div class="relative grid grid-cols-1 z-30 md:grid-cols-3 gap-8">
+      {% include "card_info.html" with title='NPM' value=npm %} {% include "card_info.html" with title='Name' value=name %} {% include "card_info.html" with title='Class' value=class %}
     </div>
-    <div class="card-body">
-      <blockquote class="blockquote mb-0">
-        <p>Jeremia Rangga Setyawan</p>
-        <footer class="blockquote-footer">{{ class }} | 2306245775</footer>
-      </blockquote>
+    <!-- Decorative Bars -->
+    <div class="w-full px-6 absolute top-[44px] left-0 z-20 hidden md:flex">
+      <div class="w-full min-h-4 bg-purple-700"></div>
     </div>
-  </div>
-</div>
-<!-- END Name Card -->
-
-<!-- UserName Card -->
-<div class="px-3 py-1">
-  <div class="card">
-    <div class="card-header"><b>User Data :</b></div>
-    <div class="card-body">
-      <p>Username : <i>{{ name }}</i></p>
-      <div
-        class="alert alert-warning mt-3"
-        role="alert"
-      >
-        <b>Sesi terakhir login : <i>{{ last_login }}</i></b>
-      </div>
+    <div class="h-full w-full py-6 absolute top-0 left-0 z-20 md:hidden flex">
+      <div class="h-full min-w-4 bg-purple-700 mx-auto"></div>
     </div>
   </div>
-</div>
-<!-- END UserName Card -->
 
-<!-- Product Card -->
-<div class="p-3">
-  <div class="card">
-    <div class="card-header"><b>Registered Product :</b></div>
-    <div class="card-body">
-      {% if not products %}
-      <p>Belum ada product pada Toko Ungu.</p>
-      {% else %}
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Product Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {% for p in products %}
-          <tr>
-            <td>{{p.name}}</td>
-            <td>{{p.description}}</td>
-            <td>{{p.price}}</td>
-            <td>{{p.quantity}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      {% endif %}
-
-      <br />
-
-      <a
-        class="btn btn-primary"
-        href="{% url 'main:create_product' %}"
-        >Add New Product
-      </a>
-
-      <a
-        class="btn btn-primary"
-        href="{% url 'main:logout' %}"
-      >
-        Logout
-      </a>
+  <!-- Last Login Section -->
+  <div class="px-3 mb-4">
+    <div class="flex rounded-md items-center bg-purple-600 py-2 px-4 w-fit">
+      <h1 class="text-white text-center">Last Login: {{last_login}}</h1>
     </div>
   </div>
-</div>
-<!-- END Product Card -->
 
+  <!-- Add New Product Entry Button -->
+  <div class="flex justify-end mb-6">
+    <a
+      href="{% url 'main:create_product' %}"
+      class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+    >
+      Add New Product Entry
+    </a>
+  </div>
+
+  <!-- Product Entries Section -->
+  {% if not products %}
+  <div class="flex flex-col items-center justify-center min-h-[24rem] p-6">
+    <img
+      src="{% static 'image/sedih-banget.png' %}"
+      alt="Sad face"
+      class="w-32 h-32 mb-4"
+    />
+    <p class="text-center text-gray-600 mt-4">Belum ada data product pada akun anda.</p>
+  </div>
+  {% else %}
+  <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 w-full">{% for product_entry in products %} {% include 'card_product.html' with product_entry=product_entry %} {% endfor %}</div>
+  {% endif %}
+</div>
 {% endblock content %}

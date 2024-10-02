@@ -1502,4 +1502,346 @@ Akun pertama :
 Akun kedua :
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/a51f14a8-90e4-4305-9988-73aa64c9efa5">
 
-Sekian & Terima Kasih
+## Tugas 5
+
+### 1) Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+
+Pada CSS, jika terdapat beberapa selector yang diterapkan pada suatu HTML, maka ada aturan prioritas yang menentukan selector mana yang akan digunakan. Prioritas atau specificity diatur berdasarkan beberapa faktor yaitu jenis selector, urutan penulisan dan ada tidaknya pengunaan aturan !important dalam CSS. Berikut adalah penjelasannya :
+
+1. **Penggunaan `!important`**:
+
+- Selector yang menggunakan aturan `!important` akan selalu memiliki prioritas tertinggi, tanpa memperhatikan nilai specificity-nya.
+- Jika ada beberapa selector yang sama-sama menggunakan `!important`, maka aturan dengan specificity yang lebih tinggi akan digunakan.
+  Contoh kode :
+  `css
+	p {
+	    color: blue !important; /* Prioritas tertinggi */
+	}
+	p {
+	    color: red;
+	}
+	`
+  Dalam contoh tersebut, paragraf akan berwarna biru karena aturan `color: blue` menggunakan `!important`.
+
+2. **Specificity (Keutamaan Spesifik)**:
+   Specificity dihitung berdasarkan tipe selector yang digunakan. Setiap selector diberikan nilai berdasarkan formula berikut:
+
+- **Inline style**: Mendapat nilai tertinggi dibanding selector lainnya (nilai 1000).
+- **ID selector**: Mendapat nilai 100.
+- **Class, pseudo-class, attribute selector**: Mendapat nilai 10.
+- **Tag (element) selector**: Mendapat nilai 1.
+- **Universal selector (`*`) dan combinators (`+`, `>`, `~`)**: Tidak menambah nilai specificity.
+  Jika ada beberapa selector yang berlaku pada elemen yang sama, selector dengan specificity lebih tinggi akan diutamakan.
+  Contoh kode :
+  ```css
+  /_ Nilai specificity: 10 _/
+  .class-selector {
+  color: green;
+  }
+
+      /* Nilai specificity: 1 */
+      div {
+          color: red;
+      }
+
+      /* Nilai specificity: 100 */
+      #id-selector {
+          color: blue;
+      }
+      ```
+      Dalam contoh ini, jika sebuah elemen `div` memiliki class `.class-selector` dan ID `#id-selector`, maka warna teks elemen tersebut akan **biru** karena ID selector memiliki nilai specificity tertinggi (100).
+
+3.  **Urutan Penulisan (Cascade)**:
+    Jika dua atau lebih aturan CSS memiliki nilai specificity yang sama, aturan yang ditulis paling akhir dalam stylesheet akan diutamakan.
+    Contoh kode :
+    ```css
+    p {
+    color: green;
+    }
+
+        p {
+            color: red;
+        }
+        ```
+        Dalam contoh ini, meskipun kedua selector memiliki nilai specificity yang sama, paragraf akan berwarna **merah** karena aturan tersebut ditulis paling akhir.
+
+### 2) Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!
+
+**Responsive design** menjadi konsep yang sangat penting dalam pengembangan aplikasi web karena penggunaan perangkat dengan berbagai ukuran layar, mulai dari ponsel, tablet, hingga komputer desktop, semakin berkembang. Responsive design memastikan bahwa tampilan dan fungsi situs web atau aplikasi web dapat beradaptasi dengan baik di berbagai perangkat, sehingga memberikan pengalaman pengguna yang konsisten dan optimal, terlepas dari perangkat yang digunakan.
+
+Berikut adalah beberapa alasan mengapa **responsive design** penting dalam pengembangan aplikasi web:
+
+1. **Peningkatan Penggunaan Perangkat Mobile**
+   Sebagian besar pengguna internet saat ini mengakses web melalui perangkat mobile, seperti smartphone ataupun tablet. Dengan responsive design, tampilan situs web otomatis menyesuaikan ukuran layar perangkat yang lebih kecil, seperti smartphone, sehingga pengguna tetap dapat menikmati pengalaman yang nyaman tanpa harus melakukan zoom in atau zoom out.
+
+2. **Pengalaman Pengguna yang Konsisten**
+   Responsive design memungkinkan tampilan yang konsisten di berbagai perangkat. Navigasi, layout, dan konten dapat disesuaikan agar tetap terlihat baik, sehingga pengguna tidak merasa kebingungan atau kesulitan saat berpindah dari satu perangkat ke perangkat lainnya.
+
+3. **Efisiensi Biaya dan Pemeliharaan**
+   Mengembangkan satu situs yang responsif jauh lebih efisien secara biaya dan lebih mudah dipelihara daripada mengembangkan beberapa situs terpisah untuk desktop dan perangkat mobile. Setiap perubahan hanya perlu diterapkan satu kali dan dapat secara otomatis berlaku di semua perangkat.
+
+4. **Adaptasi pada Perkembangan Teknologi**
+   Teknologi perangkat terus berkembang, baik dari segi ukuran layar, resolusi, maupun bentuk interaksi (seperti touch atau click). Responsive design memastikan aplikasi web siap menghadapi perkembangan ini, karena tata letak dan elemen akan menyesuaikan diri dengan lebar dan tinggi layar tanpa memerlukan penyesuaian besar-besaran.
+
+Contoh aplikasi yang sudah menerapkan responsive design :
+
+1. https://www.youtube.com
+2. https://scele.cs.ui.ac.id
+3. https://pbp-fasilkom-ui.github.io
+4. https://www.tokopedia.com
+
+Contoh aplikasi yang belum menerapkan responsive design :
+
+1. https://academic.ui.ac.id/ : Karena saat anda membuka di smartphone maka tampilan websitenya menjadi zoom out seperti di desktop.
+2. https://pbp.cs.ui.ac.id/web/ : Karena saat anda membuka di smartphone maka tampilan websitenya belum sesuai dengan ukuran smartphone.
+
+### 3) Jelaskan perbedaan antara _margin_, _border_, dan _padding_, serta cara untuk mengimplementasikan ketiga hal tersebut!
+
+Dalam CSS, **margin**, **border**, dan **padding** adalah properti yang berhubungan dengan tata letak dan ruang di sekitar elemen HTML. Masing-masing memiliki peran yang berbeda dalam menentukan jarak dan batas elemen. Berikut adalah penjelasan rinci mengenai perbedaan antara ketiganya serta cara implementasinya:
+
+1. **Margin**
+
+- **Definisi**: Margin adalah ruang kosong di luar elemen, yang memisahkan elemen dari elemen lainnya. Ini adalah area di luar batas (border) elemen.
+- **Fungsi**: Digunakan untuk memberikan jarak antara elemen yang berbeda di halaman web.
+- **Cara Implementasi**: Margin dapat ditetapkan untuk setiap sisi elemen: atas, bawah, kiri, dan kanan. Dapat ditentukan menggunakan satu nilai untuk semua sisi atau nilai yang berbeda untuk setiap sisi.
+- **Nilai Auto**: Nilai `margin: auto;` biasanya digunakan untuk memusatkan elemen secara horizontal, terutama elemen dengan lebar tetap.
+- **Contoh Penggunaan**:
+  ```css
+  .example {
+    margin: 20px; /* Margin di semua sisi */
+    margin-top: 10px; /* Margin khusus bagian atas */
+    margin-right: 15px; /* Margin khusus bagian kanan */
+    margin-bottom: 20px; /* Margin khusus bagian bawah */
+    margin-left: 25px; /* Margin khusus bagian kiri */
+  }
+  ```
+
+2. **Border**
+
+- **Definisi**: Border adalah garis yang mengelilingi elemen. Border terletak di antara padding dan margin, dan dapat diberikan warna, lebar, serta gaya (solid, dashed, dotted, dll.).
+- **Fungsi**: Menambah bingkai atau batas visual pada elemen.
+- **Cara Implementasi**: Border dapat diatur untuk semua sisi atau disesuaikan per sisi (atas, bawah, kiri, kanan). Anda dapat menentukan **ketebalan**, **gaya**, dan **warna** untuk border.
+- **Contoh Penggunaan**:
+  ```css
+  .example {
+    border: 2px solid black; /* Border di semua sisi dengan ketebalan 2px, gaya solid, dan warna hitam */
+    border-top: 4px dashed red; /* Border khusus bagian atas dengan ketebalan 4px, gaya dashed, warna merah */
+  }
+  ```
+
+3. **Padding**
+
+- **Definisi**: Padding adalah ruang kosong di dalam elemen, antara konten elemen dan border. Padding berada di dalam elemen, sehingga memperbesar ukuran area elemen itu sendiri.
+- **Fungsi**: Menambah jarak antara konten elemen dan border, memberikan ruang untuk teks atau konten di dalam elemen.
+- **Cara Implementasi**: Padding dapat diatur untuk semua sisi atau disesuaikan per sisi (atas, bawah, kiri, kanan), sama seperti margin.
+- **Contoh Penggunaan**:
+  `css
+	.example {
+	    padding: 20px;            /* Padding di semua sisi */
+	    padding-top: 10px;        /* Padding khusus bagian atas */
+	    padding-right: 15px;      /* Padding khusus bagian kanan */
+	    padding-bottom: 20px;     /* Padding khusus bagian bawah */
+	    padding-left: 25px;       /* Padding khusus bagian kiri */
+	}
+	`
+  **Perbedaan Visual antara Margin, Border, dan Padding**:
+  ![How are margins, borders, padding, and content related? - Web Tutorials -  avajava.com](https://www.avajava.com/tutorials/cascading-style-sheets/how-are-margins-borders-padding-and-content-related/how-are-margins-borders-padding-and-content-related-01.gif)
+
+### 4) Jelaskan konsep _flex box_ dan _grid layout_ beserta kegunaannya!
+
+**Flexbox** dan **Grid Layout** adalah dua sistem tata letak di CSS yang dirancang untuk mempermudah pengaturan tata letak halaman web. Masing-masing memiliki keunggulan dan kegunaan yang berbeda, tergantung pada kebutuhan desain yang ingin dicapai. Berikut adalah penjelasan rinci mengenai konsep keduanya serta kegunaannya:
+
+1. **Flexbox (Flexible Box Layout)**
+   **Flexbox** adalah model tata letak satu dimensi yang berguna untuk mengatur elemen-elemen dalam satu arah, baik secara horizontal (baris) maupun vertikal (kolom). Flexbox diciptakan untuk memperbaiki kelemahan model box tradisional ketika menangani tata letak dinamis dan distribusi ruang antar elemen, terutama dalam konteks responsif.
+
+**Konsep Flexbox**
+
+- **Parent (Container)**: Elemen induk yang menjadi kontainer dengan properti `display: flex;` untuk mengaktifkan flexbox.
+- **Children (Items)**: Elemen anak di dalam kontainer yang akan diatur tata letaknya.
+
+**Properti Penting Flexbox**
+
+- **`display: flex;`**: Mengubah elemen menjadi kontainer flex yang mengaktifkan flexbox.
+- **`flex-direction`**: Menentukan arah aliran item flex:
+  - `row` (default): Elemen diatur dalam satu baris (horizontal).
+  - `column`: Elemen diatur dalam satu kolom (vertikal).
+- **`justify-content`**: Mengatur distribusi ruang antar item secara horizontal:
+  - `flex-start`, `flex-end`, `center`, `space-between`, `space-around`, dll.
+- **`align-items`**: Mengatur penyelarasan item secara vertikal (jika menggunakan baris) atau horizontal (jika menggunakan kolom):
+  - `stretch`, `flex-start`, `flex-end`, `center`, dll.
+- **`flex-wrap`**: Mengatur apakah item harus dibungkus jika terlalu besar untuk kontainer.
+  - `nowrap` (default), `wrap`.
+- **`align-content`**: Digunakan jika elemen menggunakan beberapa baris atau kolom untuk mengatur bagaimana kumpulan baris atau kolom tersebut disejajarkan.
+
+**Kegunaan Flexbox:**
+
+- Cocok untuk tata letak **satu dimensi** (baris atau kolom).
+- Memudahkan pengaturan distribusi ruang dan penyelarasan item.
+- Fleksibel dan responsif untuk perubahan ukuran layar.
+- Contoh penggunaan: Menyusun menu navigasi, tata letak kartu (cards), atau menyelaraskan elemen secara vertikal dan horizontal.
+
+2. **CSS Grid Layout**
+   **CSS Grid** adalah model tata letak dua dimensi yang memungkinkan Anda mengatur elemen dalam bentuk baris dan kolom secara simultan. Grid sangat ideal untuk tata letak kompleks yang memerlukan kontrol lebih besar atas posisi elemen di dua arah (horizontal dan vertikal).
+
+**Konsep CSS Grid**
+
+- **Grid Container**: Elemen induk yang diubah menjadi grid menggunakan `display: grid;`.
+- **Grid Items**: Elemen anak yang ditempatkan dalam sel-sel grid berdasarkan definisi tata letak.
+
+**Properti Penting CSS Grid**
+
+- **`display: grid;`**: Mengubah elemen menjadi grid container.
+- **`grid-template-columns` dan `grid-template-rows`**: Menentukan jumlah dan ukuran kolom serta baris.
+  - Contoh: `grid-template-columns: 100px 200px auto;` membuat tiga kolom dengan lebar masing-masing 100px, 200px, dan otomatis (menyesuaikan).
+- **`grid-gap` atau `gap`**: Mengatur jarak antara baris dan kolom.
+  - Contoh: `gap: 20px;` menambahkan jarak 20px antara setiap kolom dan baris.
+- **`grid-column` dan `grid-row`**: Mengontrol di mana item grid ditempatkan dalam kolom atau baris tertentu.
+  - Contoh: `grid-column: 1 / 3;` menempatkan item di kolom 1 hingga 3.
+- **`justify-items` dan `align-items`**: Mengatur penyelarasan item di dalam grid.
+  - `justify-items`: Mengatur penyelarasan secara horizontal (kolom).
+  - `align-items`: Mengatur penyelarasan secara vertikal (baris).
+
+**Kegunaan CSS Grid**:
+
+- Ideal untuk tata letak **dua dimensi** (mengatur elemen di sepanjang baris dan kolom).
+- Lebih mudah untuk membuat desain tata letak halaman yang kompleks dengan banyak elemen.
+- Grid memberikan kontrol penuh terhadap posisi item dalam tata letak.
+- Contoh penggunaan: Mengatur layout halaman utama, galeri gambar, atau tampilan dasbor (dashboard).
+
+**Perbedaan antara Flexbox dan Grid**:
+![](https://www.theknowledgeacademy.com/_files/images/Differences_between_CSS_Grid_vs_Flexbox.png)
+
+### 5) Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial).
+
+1. Pertama-tama, Saya perlu menghubungkan tailwind ke projek Django dengan menggunakan script CDN (_Content Delivery Network_). Hal ini dapat dilakukan dengan melakukan perubahan kode pada `templates/base.html` sebagai berikut :
+   ```html
+   <head>
+     {% block meta %}
+     <meta charset="UTF-8" />
+     # Baris yang ditambahkan
+     <meta
+       name="viewport"
+       content="width=device-width, initial-scale=1"
+     />
+     # Baris yang ditambahkan {% endblock meta %}
+     <script src="https://cdn.tailwindcss.com">
+       # Baris yang ditambahkan
+     </script>
+   </head>
+   ```
+
+##### Check 1 : Implementasikan fungsi untuk menghapus dan mengedit _product_.
+
+2. Bukalah `main/views.py` dan buatlah fungsi baru bernama `edit_product` yang akan menerima parameter `request` dan `id` sebagai berikut :
+
+   ```python
+   def edit_product(request, id):
+       product = Product.objects.get(pk = id)
+
+       form = ProductForm(request.POST or None, instance=product)
+
+       if form.is_valid() and request.method == "POST":
+           form.save()
+           return HttpResponseRedirect(reverse('main:show_main'))
+
+       context = {'form': form}
+       return render(request, "edit_product.html", context)
+   ```
+
+3. Saya juga perlu menambahkan import pada file `views.py` :
+
+   ```python
+   from django.shortcuts import .., reverse
+   from django.http import .., HttpResponseRedirect
+   ```
+
+4. Saya perlu membuat berkas HTML baru bernama `edit_product.html` pada subdirektori `main/templates`. Berkas HTML tersebut berisikan kode sebagai berikut :
+
+   ```html
+   {% extends 'base.html' %} {% load static %} {% block content %}
+
+   <h1>Edit Product</h1>
+
+   <form method="POST">
+     {% csrf_token %}
+     <table>
+       {{ form.as_table }}
+       <tr>
+         <td></td>
+         <td>
+           <input
+             type="submit"
+             value="Edit Product"
+           />
+         </td>
+       </tr>
+     </table>
+   </form>
+
+   {% endblock %}
+   ```
+
+5. Saya juga perlu melakukan routing untuk fitur edit product pada aplikasi saya. Caranya adalah menambahkan import dan path url pada berkas `main/urls.py` sebagai berikut :
+   ```python
+   from main.views import edit_product
+   ...
+   path('edit-product/<uuid:id>', edit_product, name='edit_product'),
+   ...
+   ```
+6. Agar edit product dapat diakses oleh pengguna, maka saya perlu membuat tombol di laman utama pada aplikasi saya. Caranya adalah menambah baris kode berikut pada `main/templates/main.html`, pastikan kode berikut berada di posisi yang sejajar dengan elemen `<td>` terakhir :
+   ```html
+   ...
+   <tr>
+     ...
+     <td>
+       <a href="{% url 'main:edit_product' product_entry.pk %}">
+         <button>Edit</button>
+       </a>
+     </td>
+   </tr>
+   ...
+   ```
+7. Untuk mengimplementasikan fitur hapus pada aplikasi saya, maka saya perlu membuat fungsi baru bernama `delete_product` yang menerima parameter request dan id pada `main/views.py`. Berikut adalah kodenya :
+   ```python
+   def delete_product(request, id):
+       product = Product.objects.get(pk = id)
+       product.delete()
+       return HttpResponseRedirect(reverse('main:show_main'))
+   ```
+8. Saya juga perlu melakukan routing pada fitur delete product dengan cara menambahkan import dan path url pada berkas `main/urls.py`. Berikut kode penambahannya :
+   ```python
+   from main.views import delete_product
+   ...
+   path('delete/<uuid:id>', delete_product, name='delete_product'),
+   ...
+   ```
+9. Sekarang, saya perlu menambahkan tombol delete product pada laman utama aplikasi saya. Sama seperti tadi, saya perlu menambahkan tombol untuk menghapus produk di berkasi `main/templates/main.html`. Kodenya sebagai berikut :
+   ```html
+   ...
+   <tr>
+     ...
+     <td>
+       <a href="{% url 'main:edit_product' product_entry.pk %}">
+         <button>Edit</button>
+       </a>
+     </td>
+     <td>
+       <a href="{% url 'main:delete_product' product_entry.pk %}">
+         <button>Delete</button>
+       </a>
+     </td>
+   </tr>
+   ...
+   ```
+
+##### Check 2 : Kustomisasi desain pada _template_ HTML yang telah dibuat pada tugas-tugas sebelumnya menggunakan CSS atau CSS framework (seperti Bootstrap, Tailwind, Bulma).
+
+10. Untuk melakukan kustomisasi login, register, dan tambah product, saya hanya perlu memodifikasi template yang diberikan di tutorial agar sesuai dengan warna atau desain yang saya inginkan. Saya hanya perlu menambahkan class dari tailwindcss untuk merubah tampilan laman tersebut. Saya juga menambahkan `<style>` di beberapa bagian laman. Kode lengkap dapat dilihat di github saya.
+11. Untuk laman daftar product, saya juga melakukan hal yang kurang lebih sama di step 10, saya hanya mengubah beberapa bagian menggunakan tailwind css. Kode lengkap dapat dilihat di github saya.
+12. Pembuatan navigation bar pada aplikasi saya dengan cara membuat berkas baru pada folder `/templates/navbar.html`. Saya juga menggunakan template dasar dari tutorial, tetapi saya juga melakukan modifikasi menggunakan class tailwind css. Untuk kode lengkap dapat dilihat di github saya.
+13. Saya juga perlu menghubungkan laman `main/templates/create_product` dan `main/templates/edit_product` dengan menambahkan tags `include`:
+    ```html
+    {% extends 'base.html' %} {% block content %} {% include 'navbar.html' %} ... {% endblock content%}
+    ```
+
+Sekian dan terima kasih
