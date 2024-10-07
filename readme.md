@@ -1,4 +1,4 @@
-﻿# Toko Ungu !!
+﻿# Toko Ungu
 
 **_Disusun oleh : Jeremia Rangga Setyawan | 2306245775 | PBP B_**
 
@@ -1521,6 +1521,7 @@ Pada CSS, jika terdapat beberapa selector yang diterapkan pada suatu HTML, maka 
     color: red;
   }
   ```
+
   Dalam contoh tersebut, paragraf akan berwarna biru karena aturan `color: blue` menggunakan `!important`.
 
 2. **Specificity (Keutamaan Spesifik)**:
@@ -1551,7 +1552,7 @@ Pada CSS, jika terdapat beberapa selector yang diterapkan pada suatu HTML, maka 
   }
   ```
 
-      Dalam contoh ini, jika sebuah elemen `div` memiliki class `.class-selector` dan ID `#id-selector`, maka warna teks elemen tersebut akan **biru** karena ID selector memiliki nilai specificity tertinggi (100).
+   Dalam contoh ini, jika sebuah elemen `div` memiliki class `.class-selector` dan ID `#id-selector`, maka warna teks elemen tersebut akan **biru** karena ID selector memiliki nilai specificity tertinggi (100).
 
 3.  **Urutan Penulisan (Cascade)**:
     Jika dua atau lebih aturan CSS memiliki nilai specificity yang sama, aturan yang ditulis paling akhir dalam stylesheet akan diutamakan.
@@ -1567,7 +1568,7 @@ Pada CSS, jika terdapat beberapa selector yang diterapkan pada suatu HTML, maka 
     }
     ```
 
-        Dalam contoh ini, meskipun kedua selector memiliki nilai specificity yang sama, paragraf akan berwarna **merah** karena aturan tersebut ditulis paling akhir.
+   Dalam contoh ini, meskipun kedua selector memiliki nilai specificity yang sama, paragraf akan berwarna **merah** karena aturan tersebut ditulis paling akhir.
 
 ### 2) Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!
 
@@ -1655,6 +1656,7 @@ Dalam CSS, **margin**, **border**, dan **padding** adalah properti yang berhubun
   ```
 
   **Perbedaan Visual antara Margin, Border, dan Padding**:
+  
   ![How are margins, borders, padding, and content related? - Web Tutorials -  avajava.com](https://www.avajava.com/tutorials/cascading-style-sheets/how-are-margins-borders-padding-and-content-related/how-are-margins-borders-padding-and-content-related-01.gif)
 
 ### 4) Jelaskan konsep _flex box_ dan _grid layout_ beserta kegunaannya!
@@ -1719,6 +1721,7 @@ Dalam CSS, **margin**, **border**, dan **padding** adalah properti yang berhubun
 - Contoh penggunaan: Mengatur layout halaman utama, galeri gambar, atau tampilan dasbor (dashboard).
 
 **Perbedaan antara Flexbox dan Grid**:
+
 ![](https://www.theknowledgeacademy.com/_files/images/Differences_between_CSS_Grid_vs_Flexbox.png)
 
 ### 5) Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial).
