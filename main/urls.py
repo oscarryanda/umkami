@@ -22,8 +22,5 @@ urlpatterns = [
     path('categories/', views.categories_view, name='categories'),
     path('add-to-cart/<uuid:product_id>/', views.add_to_cart, name='add_to_cart'),
     path('remove-from-cart/<uuid:product_id>/', views.remove_from_cart, name='remove_from_cart'),
+    path('add-product-ajax/', views.add_product_ajax, name="add_product_ajax")
 ]
-
-
-
-

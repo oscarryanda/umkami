@@ -6,29 +6,7 @@
   <div class="container mx-auto">
     <h2 class="text-3xl font-bold text-center text-green-600 mb-6">Daftar Produk</h2>
     
-    {% if not products %}
-      <div class="flex flex-col items-center justify-center">
-        <img src="{% static 'images/no-products.png' %}" alt="No products" class="w-64 h-64 mb-4"/>
-        <p class="text-gray-600 text-lg">Belum ada produk yang terdaftar.</p>
-      </div>
-    {% else %}
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {% for p in products %}
-        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-          <div class="p-4">
-            <h3 class="text-xl font-bold text-green-600">{{ p.name }}</h3>
-            <p class="text-gray-600 mt-2">{{ p.description }}</p>
-            <p class="text-gray-800 font-semibold mt-4">Harga: {{ p.price }}</p>
-            <p class="text-gray-600 mt-1">Jumlah: {{ p.quantity }}</p>
-          </div>
-          <div class="flex justify-between p-4 bg-green-50">
-            <a href="{% url 'main:edit_product' p.id %}" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">Edit</a>
-            <a href="{% url 'main:delete_product' p.id %}" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">Delete</a>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    {% endif %}
+    <div id="mood_entry_cards"></div>
     
     <div class="mt-6 flex justify-center space-x-4">
       <a href="{% url 'main:create_product' %}">
@@ -58,26 +36,7 @@
         <!-- Modal body -->
         <div class="p-6">
             <form id="productForm">
-                <div class="mb-4">
-                    <label for="name" class="block">Product Name</label>
-                    <input type="text" id="name" name="name" class="border w-full p-2" placeholder="Enter product name" required>
-                </div>
-                <div class="mb-4">
-                    <label for="description" class="block">Description</label>
-                    <textarea id="description" name="description" rows="3" class="border w-full p-2" placeholder="Enter product description" required></textarea>
-                </div>
-                <div class="mb-4">
-                    <label for="price" class="block">Price</label>
-                    <input type="number" id="price" name="price" class="border w-full p-2" placeholder="Enter product price" required>
-                </div>
-                <div class="mb-4">
-                    <label for="quantity" class="block">Quantity</label>
-                    <input type="number" id="quantity" name="quantity" class="border w-full p-2" placeholder="Enter product quantity" required>
-                </div>
-                <div class="mb-4">
-                    <label for="category" class="block">Category</label>
-                    <input type="text" id="category" name="category" class="border w-full p-2" placeholder="Enter product category" required>
-                </div>
+              {{ form.as_p }}
             </form>
         </div>
 
@@ -91,6 +50,66 @@
 
 <!-- JavaScript for modal show/hide -->
 <script>
+    // Create
+    function addProduct() {
+      fetch("{% url 'main:add_product_ajax' %}", {
+        method: "POST",
+        body: new FormData(document.querySelector('#productForm')),
+      })
+      .then(response => refreshMoodEntries())
+
+      document.getElementById("productForm").reset(); 
+      hideModal()
+
+      return false;
+    }
+
+    // Get on first Load
+  async function getMoodEntries(){
+      return fetch("{% url 'main:show_json' %}").then((res) => res.json())
+  }
+
+  // Get on Refresh
+  async function refreshMoodEntries() {
+    document.getElementById("mood_entry_cards").innerHTML = "";
+    document.getElementById("mood_entry_cards").className = "";
+    const moodEntries = await getMoodEntries();
+    let htmlString = "";
+    let classNameString = "";
+
+    if (moodEntries.length === 0) {
+        classNameString = "flex flex-col items-center justify-center";
+        htmlString = `
+            <img src="{% static 'image/sedih-banget.png' %}" alt="No products" class="w-64 h-64 mb-4"/>
+            <p class="text-gray-600 text-lg">Belum ada produk yang terdaftar.</p>
+        `;
+    }
+    else {
+        classNameString = "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+        moodEntries.forEach((item) => {
+            htmlString += `
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+              <div class="p-4">
+                <h3 class="text-xl font-bold text-green-600">${item.fields.name}</h3>
+                <p class="text-gray-600 mt-2">${item.fields.description}</p>
+                <p class="text-gray-800 font-semibold mt-4">Harga: ${item.fields.price}</p>
+                <p class="text-gray-600 mt-1">Jumlah: ${item.fields.quantity}</p>
+              </div>
+              <div class="flex justify-between p-4 bg-green-50">
+                <a href="/edit-product/${item.pk}" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">Edit</a>
+                <a href="/delete/${item.pk}" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">Delete</a>
+              </div>
+            </div>
+            `;
+        });
+    }
+    document.getElementById("mood_entry_cards").className = classNameString;
+    document.getElementById("mood_entry_cards").innerHTML = htmlString;
+  }
+  refreshMoodEntries();
+
+
+
     const modal = document.getElementById('crudModal');
     const openModalBtnAjax = document.getElementById('openModalBtnAjax');
     const closeModalBtn = document.getElementById('closeModalBtn');
@@ -110,6 +129,7 @@
     openModalBtnAjax.addEventListener('click', showModal);
     closeModalBtn.addEventListener('click', hideModal);
     cancelButton.addEventListener('click', hideModal);
+    document.getElementById("submitProduct").onclick = addProduct
 </script>
 
 {% endblock content %}

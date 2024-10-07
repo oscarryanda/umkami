@@ -1,4 +1,3 @@
-# main/models.py
 from django.db import models
 import uuid
 from django.contrib.auth.models import User
@@ -16,7 +15,7 @@ class Product(models.Model):
     description = models.TextField()
     price = models.IntegerField()
     quantity = models.IntegerField(default=1)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)  # Add category relation
+    # category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)  # Add category relation
 
     @property
     def is_available(self):
