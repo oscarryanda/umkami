@@ -1,4 +1,4 @@
-﻿# Toko Ungu
+﻿﻿# Toko Ungu
 
 **_Disusun oleh : Jeremia Rangga Setyawan | 2306245775 | PBP B_**
 
@@ -2354,6 +2354,7 @@ const modalContent = document.getElementById('crudModalContent');
 ```
 ##### Check 7 : Lakukan _refresh_ pada halaman utama secara asinkronus untuk menampilkan daftar _product_ terbaru tanpa reload halaman utama secara keseluruhan.
 NOTES : Check ketujuh sudah dilakukan pada step sebelumnya yaitu step ke 5.
+
 12. Untuk meminimalisir serangan _Cross Site Scripting_, maka saya perlu melakukan beberapa perubahan pada kode saya. Pertama, saya perlu menambahkan baris kode berikut pada `views.py`:
 ```python
 ...

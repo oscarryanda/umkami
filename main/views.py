@@ -120,7 +120,8 @@ def create_product_ajax(request):
     user = request.user
 
     if name == "" or description == "":
-        return HttpResponseRedirect(reverse('main:show_main'))
+        messages.error(request, "Product name and description cannot be empty.")
+        return HttpResponse(status=400)
 
     new_product = Product(name=name, description=description, price=price, quantity=quantity, user=user)
     new_product.save()
